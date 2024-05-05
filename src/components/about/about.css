@@ -1,0 +1,87 @@
+.about {
+  padding: 2rem;
+  height: 100vh;
+}
+
+.about__container {
+  color: var(--text-color);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about__typography {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 7rem;
+  font-size: 8rem;
+  text-transform: uppercase;
+  line-height: 5rem;
+  font-weight: 900;
+  color: #ffffff31;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 2px;
+  z-index: 2;
+}
+
+.about__text {
+  width: 60%;
+  line-height: 2.8rem;
+  display: flex;
+  flex-direction: column;
+  font-weight: 900;
+  font-size: 2.5rem;
+  z-index: 3;
+}
+
+.about__outline {
+  color: rgb(255, 255, 255);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+}
+
+.about__outline:hover {
+  -webkit-text-fill-color: var(--text-color);
+}
+
+.about__button a {
+  color: var(--text-color);
+  text-decoration: underline;
+  font-size: 1.5rem;
+}
+
+/* breakpoints */
+@media screen and (max-width: 992px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 576px) {
+  .about {
+    padding: 0 1.5rem;
+  }
+
+  .about__typography {
+    left: 2rem;
+    font-size: 5rem;
+    line-height: 5rem;
+    font-weight: 900;
+  }
+  .about__text {
+    width: 90%;
+    line-height: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    font-weight: 900;
+    font-size: 2.5rem;
+    z-index: 3;
+  }
+  .about__button a {
+    color: var(--text-color);
+    text-decoration: underline;
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 350px) {
+}

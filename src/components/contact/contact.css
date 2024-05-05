@@ -1,0 +1,119 @@
+.contact {
+  width: 100%;
+  height: max-content;
+  padding: 8rem 8rem 0 8rem;
+}
+
+.info__contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  padding: 0 0 8rem 0;
+}
+
+.contact__text {
+  width: 50%;
+  line-height: 2.5rem;
+  font-size: 2rem;
+}
+
+.contact__link {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.contact__link form {
+  gap: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact__link input,
+.contact__link textarea {
+  width: 100%;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid white;
+  color: var(--text-color);
+}
+
+::placeholder {
+  color: var(--text-hover);
+}
+
+.contact__email {
+  width: 50%;
+  padding: 0.7rem 1.2rem;
+  margin: 0 auto;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: #383838;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 10px;
+}
+.contact__email:hover {
+  background-color: #7c7c7c;
+}
+
+.form__initial {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-content: center;
+  gap: 0.7rem;
+}
+
+.contact__footer {
+  width: 100%;
+  display: flex;
+  padding: 0.5rem;
+  color: var(--text-color);
+  justify-content: space-between;
+}
+
+/* breakpoints */
+@media screen and (max-width: 992px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 576px) {
+  .contact {
+    width: 100%;
+    height: max-content;
+    padding: 8rem 2rem 0 2rem;
+  }
+  .info__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 0 0 8rem 0;
+    /* background-color: salmon; */
+  }
+  .contact__text {
+    width: 100%;
+    line-height: 2.5rem;
+    font-size: 2rem;
+  }
+  .contact__link {
+    width: 100%;
+  }
+  .contact__link form {
+    gap: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form__initial {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 350px) {
+}

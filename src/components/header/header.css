@@ -1,0 +1,84 @@
+.header {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+.header__image-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.header__image {
+  background: url("../../assets/apple.jpg");
+  position: end;
+  width: 500px;
+  height: 600px;
+  background-size: cover;
+  margin: 0 auto;
+  box-shadow: inset 0 0 0 13px rgb(255 255 255 / 30%);
+}
+
+.text__filled,
+.text__outline {
+  position: absolute;
+  text-transform: uppercase;
+  font-style: var(--font-style-typography);
+  bottom: 12rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  pointer-events: none;
+  color: white;
+}
+
+.text__outline {
+  color: white;
+  z-index: 2;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 2px;
+}
+
+.to-left {
+  bottom: 18.3rem;
+}
+
+.title {
+  white-space: nowrap;
+  font-size: 8rem;
+  position: absolute;
+  transition: all 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* breakpoints */
+@media screen and (max-width: 992px) {
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 576px) {
+  .header__image-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .header__image {
+    width: 350px;
+    height: 350px;
+  }
+}
+@media screen and (max-width: 350px) {
+}
