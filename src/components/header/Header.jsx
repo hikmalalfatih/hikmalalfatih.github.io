@@ -17,7 +17,7 @@ const Header = () => {
             style={{ x: right }}
             className="title"
           >
-            Apple Device
+            Machine Expert
           </motion.h1>
         </div>
         <div className="text__outline">
@@ -27,7 +27,7 @@ const Header = () => {
             style={{ x: right }}
             className="title"
           >
-            Apple Device
+            Machine Expert
           </motion.h1>
         </div>
         <div className="text__filled to-left">

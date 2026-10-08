@@ -43,7 +43,7 @@ const MoreInfo = () => {
             <a
               target="_blank"
               rel="noreferrer noopener"
-              href="https://instagram.com/hikmalalfatih05"
+              href="https://instagram.com/hikmalalfatih"
             >
               Instagram <i className="uil uil-arrow-up-right"></i>
             </a>
@@ -63,6 +63,22 @@ const MoreInfo = () => {
               <a
                 target="_blank"
                 rel="noreferrer noopener"
+                href="https://drive.google.com/file/d/10gp7yppJlmyCRH_iUHKwpwRZLFS-r-Ox/view?usp=sharing"
+              >
+                Academic Transcript{" "}
+                <i className="uil uil-arrow-up-right"></i>
+              </a>
+              <a
+                target="_blank"
+                rel="noreferrer noopener"
+                href="https://drive.google.com/file/d/1WMvKPNLi9YPFcgzEacuh5jbwStjU980Y/view?usp=sharing"
+              >
+                Certificate of Completion{" "}
+                <i className="uil uil-arrow-up-right"></i>
+              </a>
+              <a
+                target="_blank"
+                rel="noreferrer noopener"
                 href="https://drive.google.com/file/d/1Chml6SGk3UtQz0rneIVayaweMNn_HBbj/view?usp=sharing"
               >
                 Machine Expert{" "}
@@ -73,8 +89,12 @@ const MoreInfo = () => {
           <div className="info__item">
             <h1>Experience</h1>
             <div className="info__detail">
-              <a target="_blank" rel="noreferrer noopener" href="https://drive.google.com/file/d/14_b89l3c8n7KDSrPBJA9m7_TZH_fj6GJ/view?usp=sharing">
+              <a target="_blank" rel="noreferrer noopener" href="https://www.instagram.com/bdg.applenesia/reel/DdD_r1lTjtj/">
                 Machine Expert - Applenesia{" "}
+                <i className="uil uil-arrow-up-right"></i>
+              </a>
+              <a target="_blank" rel="noreferrer noopener" href="https://drive.google.com/file/d/14_b89l3c8n7KDSrPBJA9m7_TZH_fj6GJ/view?usp=sharing">
+                Machine Expert certificate{" "}
                 <i className="uil uil-arrow-up-right"></i>
               </a>
             </div>

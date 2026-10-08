@@ -36,7 +36,7 @@ const Work = () => {
             <span className="title__link">01.</span>
             <div className="work__subtitle">
               <span className="title__link">Pasar Keuangan</span>
-              <p>Financial Market analysis and visualization</p>
+              <p>Financial market analysis and visualization.</p>
             </div>
           </div>
         </div>
