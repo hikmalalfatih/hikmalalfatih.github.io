@@ -1,70 +1,61 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./footer.css";
-import picture from "../../assets/profileImage.JPG";
-
-const Footer = () => {
-  return (
-    <footer id="footer">
-      <div className="footer__container">
-        <div className="footer__main">
-          <div className="footer__title">
-            <img src={picture} alt="Fachrur Rizhky" />
-            <h1>Let's work together!</h1>
-          </div>
-          <div className="footer__button">
-            <Link to="/me">Get in touch</Link>
-          </div>
-          <div className="footer__contact">
-            <a href="mailto:hikmalalfatih05@gmail.com">
-              hikmalalfatih05@gmail.com
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://wa.me/6281903031378/?text=Hello%20Hikmal"
-            >
-              +62 819 0303 1378
-            </a>
-          </div>
+const Footer = () => (
+  <footer id="contact" className="scroll-mt-24 bg-ink text-white">
+    <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 md:py-20">
+      <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">
+            Contact
+          </p>
+          <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
+            Have a project or a device that needs attention?
+          </h2>
+          <p className="mt-4 max-w-xl leading-7 text-slate-300">
+            I’m open to conversations about web development, technical
+            support, and hardware repair.
+          </p>
         </div>
-        <div className="footer__info">
-          <div className="footer__section">
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://instagram.com/hikmalalfatih"
-            >
-              Instagram
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://youtube.com/@hikmalalfatih"
-            >
-              YouTube
-            </a>
-          </div>
-          <div className="footer__section">
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://www.linkedin.com/in/hikmal-alfatih-ba264a148?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-            >
-              LinkedIn
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://www.tiktok.com/@hikmalalfatih"
-            >
-              TikTok
-            </a>
-          </div>
+        <a
+          href="mailto:hikmalalfatih05@gmail.com"
+          className="inline-flex w-fit items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-ink transition hover:bg-teal-50"
+        >
+          Email me <span aria-hidden="true">↗</span>
+        </a>
+        <a
+          href="/CV_Hikmal_Alfatih_Jibral.pdf"
+          download="CV_Hikmal_Alfatih_Jibral.pdf"
+          className="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-600 px-5 py-3 font-semibold text-white transition hover:border-teal-300 hover:text-teal-200"
+        >
+          Download CV <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+      <div className="mt-12 flex flex-col justify-between gap-4 border-t border-slate-700 pt-6 text-sm text-slate-300 sm:flex-row sm:items-center">
+        <a href="mailto:hikmalalfatih05@gmail.com" className="hover:text-white">
+          hikmalalfatih05@gmail.com
+        </a>
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <a
+            href="https://www.linkedin.com/in/hikmal-alfatih-ba264a148"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hover:text-white"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://wa.me/6281903031378/?text=Hello%20Hikmal"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hover:text-white"
+          >
+            WhatsApp
+          </a>
+          <a href="#home" className="hover:text-white">
+            Back to top ↑
+          </a>
         </div>
       </div>
-    </footer>
-  );
-};
+    </div>
+  </footer>
+);
 
 export default Footer;

@@ -1,67 +1,34 @@
-import React, { useState } from "react";
-import "./navbar.css";
-
 const Navbar = () => {
-  const [activeNav, setActiveNav] = useState("#header");
+  const links = [
+    ["About", "#about"],
+    ["Experience", "#experience"],
+    ["Skills", "#skills"],
+    ["Projects", "#work"],
+    ["Contact", "#contact"],
+  ];
+
   return (
-    <nav>
-      <div className="nav__name">
-        <span>Hi, my name is</span>
-        <span>Hikmal Alfatih</span>
-      </div>
-      <div className="nav__container">
-        <div className="nav__menu">
-          <a href="#header" onClick={() => setActiveNav("#header")}>
-            <i
-              className={
-                activeNav === "#header"
-                  ? "active__nav nav__icon uil uil-estate"
-                  : "nav__icon uil uil-estate"
-              }
-            ></i>
-            <span className="nav__link">Home</span>
-          </a>
-          <a href="#about" onClick={() => setActiveNav("#about")}>
-            <i
-              className={
-                activeNav === "#about"
-                  ? "active__nav nav__icon uil uil-user"
-                  : "nav__icon uil uil-user"
-              }
-            ></i>
-            <span className="nav__link">About</span>
-          </a>
-          <a href="#work" onClick={() => setActiveNav("#work")}>
-            <i
-              className={
-                activeNav === "#work"
-                  ? "active__nav nav__icon uil uil-folder-open"
-                  : "nav__icon uil uil-folder-open"
-              }
-            ></i>
-            <span className="nav__link">Work</span>
-          </a>
-        </div>
-        <div className="nav__contact">
-          <a href="#services" onClick={() => setActiveNav("#services")}>
-            <i
-              className={
-                activeNav === "#services"
-                  ? "active__nav nav__icon uil uil-bookmark"
-                  : "nav__icon uil uil-bookmark"
-              }
-            ></i>
-            <span className="nav__link">Service</span>
-          </a>
-          <a href="#footer" onClick={() => setActiveNav("#footer")}>
-            <i
-              className={
-                activeNav === "#footer"
-                  ? "active__nav nav__icon uil uil-comment-lines"
-                  : "nav__icon uil uil-comment-lines"
-              }
-            ></i>
-            <span className="nav__link">Contact</span>
+    <nav className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-4 sm:px-8">
+        <a href="#home" className="font-semibold tracking-tight text-ink">
+          Hikmal Alfatih<span className="text-accent">.</span>
+        </a>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-600">
+          {links.map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              className="transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              {label}
+            </a>
+          ))}
+          <a
+            href="/CV_Hikmal_Alfatih_Jibral.pdf"
+            download="CV_Hikmal_Alfatih_Jibral.pdf"
+            className="font-semibold text-accent transition hover:text-teal-800"
+          >
+            Download CV
           </a>
         </div>
       </div>
