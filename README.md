@@ -1,82 +1,41 @@
-# Getting Started with Create React App
+# Hikmal Alfatih — Talent Scout Wizard
 
-## Telegram contact messages
+An interactive, recruiter-facing portfolio built with Next.js App Router,
+Tailwind CSS, Framer Motion, and Lucide React. The experience guides visitors
+through role, skill, and experience choices, then prints a personalized contact
+receipt.
 
-The contact form sends messages through the Vercel function at
-`/api/send-message`. Before deploying, create a Telegram bot with BotFather,
-send it a message from your Telegram account, and configure these Vercel
-environment variables:
+## Run locally
 
-- `TELEGRAM_BOT_TOKEN`: the token provided by BotFather.
-- `TELEGRAM_CHAT_ID`: the chat ID that should receive portfolio messages.
+```bash
+npm ci
+npm run dev
+```
 
-Use `.env.example` as a local reference. Never commit the real token.
+Open [http://localhost:3000](http://localhost:3000).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Production and GitHub Pages
 
-## Available Scripts
+```bash
+npm run build
+```
 
-In the project directory, you can run:
+Next.js is configured for static export; the deployable site is written to
+`out/`. Push to `main` to run the GitHub Pages workflow. The site uses no server
+runtime or API routes, so the static export works on GitHub Pages.
 
-### `npm start`
+## CV content
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Experience, education, contact information, skills, and role options are
+maintained in `app/data/portfolio.js`. The downloadable CV is in `public/`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project structure
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `app/page.jsx` and `app/layout.jsx` — App Router entry and metadata.
+- `app/components/Wizard.jsx` — wizard state, step transitions, and final print.
+- `app/components/DynamicHeader.jsx` — live recruiter sentence builder.
+- `app/components/RoleSelection.jsx` — role selection.
+- `app/components/SkillSlider.jsx` — draggable skills slider.
+- `app/components/ExperienceTimeline.jsx` — draggable career timeline.
+- `app/components/TicketReceipt.jsx` — animated resume/contact ticket and QR.
+- `app/data/portfolio.js` — CV-based portfolio content.
