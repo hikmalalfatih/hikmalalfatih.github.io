@@ -40,7 +40,7 @@ const Welcome = ({ onComplete }) => {
   return (
     <section
       aria-label="Welcome"
-      className={`fixed inset-0 z-50 grid min-h-[100svh] place-items-center overflow-hidden bg-ink px-6 text-white transition-[opacity,transform,filter] duration-[900ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${
+      className={`fixed inset-0 z-50 grid min-h-[100svh] place-items-center overflow-hidden bg-black px-6 text-white transition-[opacity,transform,filter] duration-[900ms] ease-[cubic-bezier(0.76,0,0.24,1)] ${
         isClosing
           ? "pointer-events-none scale-[1.04] opacity-0 blur-sm"
           : "scale-100 opacity-100 blur-0"
@@ -50,10 +50,10 @@ const Welcome = ({ onComplete }) => {
         src={appleWallpaper}
         alt=""
         aria-hidden="true"
-        className="welcome-art pointer-events-none absolute -right-24 top-1/2 h-[75svh] max-h-[680px] w-auto -translate-y-1/2 opacity-[0.13] sm:right-[8%]"
+        className="welcome-art pointer-events-none absolute -right-24 top-1/2 h-[75svh] max-h-[680px] w-auto -translate-y-1/2 opacity-[0.12] grayscale brightness-0 invert sm:right-[8%]"
       />
       <div className="relative w-full max-w-2xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-teal-200">
+        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/60">
           Hikmal Alfatih
         </p>
         <div
@@ -69,22 +69,11 @@ const Welcome = ({ onComplete }) => {
           >
             {greeting.text}
           </p>
-          <p className="mt-4 text-sm tracking-[0.2em] text-slate-300">
+          <p className="mt-4 text-sm tracking-[0.2em] text-white/55">
             {greeting.language}
           </p>
         </div>
-        <div
-          className="mx-auto mt-12 h-0.5 w-40 overflow-hidden rounded-full bg-white/20"
-          aria-hidden="true"
-        >
-          <div
-            className="h-full bg-teal-300 transition-[width] duration-500 ease-out"
-            style={{
-              width: `${((activeGreeting + 1) / greetings.length) * 100}%`,
-            }}
-          />
-        </div>
-        <p className="mt-10 text-xs tracking-[0.24em] text-slate-400">
+        <p className="mt-12 text-xs tracking-[0.24em] text-white/40">
           {isClosing ? "WELCOME" : "A MOMENT IN EVERY LANGUAGE"}
         </p>
       </div>
