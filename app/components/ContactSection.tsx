@@ -194,7 +194,7 @@ export default function ContactSection() {
             {commentsError && <p className="inline-error" role="status">{commentsError} <button type="button" onClick={() => void loadComments()}>Retry</button></p>}
             {!commentsLoading && !commentsError && comments.length === 0 && <p className="empty-state">No notes yet. Be the first to leave one.</p>}
             {comments.map((comment) => <article className="comment-item" key={comment.id}>
-              <span className="comment-avatar">{comment.avatar_url ? <img src={comment.avatar_url} alt="" /> : comment.name.split(/\s+/).map((part) => part[0]).slice(0, 2).join("").toUpperCase()}</span>
+              <span className="comment-avatar">{comment.avatar_url ? <img src={comment.avatar_url} alt="" loading="lazy" decoding="async" /> : comment.name.split(/\s+/).map((part) => part[0]).slice(0, 2).join("").toUpperCase()}</span>
               <div className="comment-bubble"><div className="comment-meta"><strong>{comment.name}</strong><time dateTime={comment.created_at}>{relativeTime(comment.created_at)}</time></div><p>{comment.message}</p></div>
             </article>)}
             {hasMore && <button className="button button-secondary load-more" type="button" disabled={commentsLoading} onClick={() => void loadComments(comments.at(-1)?.created_at)}>Load more</button>}

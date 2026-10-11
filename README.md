@@ -138,23 +138,42 @@ to GitHub Pages variables or the static app.
 
 Personal profile facts, work history, education, projects, credentials, skills,
 and social links are maintained in `app/data/profile.ts`. `public/resume.pdf`
-is the CV PDF currently available in the workspace. Optional visual assets:
+is the CV PDF currently available in the workspace. The supplied profile portrait, Machine Expert certificate, and Azul Home
+screenshot are included in `public/images/profile.jpeg`,
+`public/certificates/machine-expert.jpg`, and `public/projects/azul-home.png`.
+Other optional visual assets:
 
-- `public/images/profile.png` — transparent portrait used in the About section.
-- `public/projects/azul-home.webp` — Azul Home screenshot; a custom gradient
-  placeholder appears until this file is supplied.
-- `public/certificates/machine-expert.webp` — certificate image; the UI uses a
-  styled credential card when the image is not present.
+- Replace those images at the same paths to update them.
 
-GitHub and Instagram links and the Apple Music embed URL are omitted while
-their values are blank in `app/data/profile.ts`.
+GitHub and Instagram links are omitted while their values are blank in
+`app/data/profile.ts`. The Daily Rotation card embeds the Spotify playlist
+configured by `spotifyEmbedUrl` there.
+
+### Education and experience logos
+
+Logo paths for each school and workplace are listed in `app/data/profile.ts`.
+Add your image files at the matching locations:
+
+- Education: `public/logos/education/`
+- Workplaces: `public/logos/experience/`
+
+Expected filenames are `universitas-terbuka.png`, `ppkd-jakarta-barat.png`,
+`alfachriyah.png`, `sma-95.png`, `applenesia.png`, `eka-putra-berkat.png`,
+`icolor-digital.png`, and `myrepublic.png`. To use a different filename,
+update that entry's `logo` path in `app/data/profile.ts`. PNG, JPG, and WebP
+images are supported. Until a file is added, the organization initials remain
+visible automatically.
 
 ## Manual QA checklist
 
 - Test at 360, 768, 1024, and 1440 CSS pixels; confirm there is no horizontal
   page overflow and the navigation remains usable.
-- Complete the multilingual splash, reload, and verify it plays only once per
-  tab session. Check the reduced-motion setting.
+- Reload the page and verify that every greeting in the multilingual splash
+  appears at a readable pace, then confirm the final welcome message remains
+  visible before the galaxy and portfolio fade in. Check reduced-motion behavior.
+- Confirm the galaxy appears immediately after the multilingual splash, its
+  stars twinkle and meteors fall, and its layers move with scrolling while the
+  four-item navbar stays fixed and translucent panels remain readable.
 - Navigate all four anchors by mouse and keyboard; confirm the active nav and
   URL hash follow the visible section.
 - Use the portfolio tabs with mouse and arrow keys; open and close the project

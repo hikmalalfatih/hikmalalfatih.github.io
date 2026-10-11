@@ -134,11 +134,11 @@ export default function PortfolioSection({
                 <article className="glass project-card" key={project.title}>
                   <div className="project-visual">
                     {project.image && !imageFailed ? (
-                      <img src={project.image} alt={`${project.title} website preview`} onError={() => setImageFailed(true)} />
+                      <img src={project.image} alt={`${project.title} website preview`} loading="lazy" decoding="async" onError={() => setImageFailed(true)} />
                     ) : (
                       <div className="project-placeholder" role="img" aria-label="Azul Home screenshot to be added">
                         <span className="placeholder-window"><span /><span /><span /></span>
-                        <strong>Azul Home</strong><small>Screenshot coming soon</small>
+                        <strong>Azul Home</strong><small>Ruang Temu — rumah kecil kita</small>
                       </div>
                     )}
                   </div>
@@ -160,8 +160,11 @@ export default function PortfolioSection({
             <div className="credential-grid">
               {certificates.map((certificate, index) => (
                 <button className="glass credential-card" key={certificate} onClick={() => { setCertificateZoomed(false); setLightboxIndex(index); }}>
-                  <span className="credential-art"><Award size={32} /><span>{String(index + 1).padStart(2, "0")}</span></span>
-                  <strong>{certificate}</strong><small>Certificate image can be added in public/certificates/</small>
+                  <span className="credential-art">
+                    <img src="/certificates/machine-expert.jpg" alt="" loading="lazy" decoding="async" />
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  </span>
+                  <strong>{certificate}</strong><small>Applenesia</small>
                 </button>
               ))}
             </div>
@@ -199,7 +202,9 @@ export default function PortfolioSection({
         )}
         {lightboxIndex !== null && (
           <Modal title={certificates[lightboxIndex]} onClose={() => setLightboxIndex(null)}>
-            <div className={`certificate-lightbox ${certificateZoomed ? "certificate-zoomed" : ""}`}><Award size={54} /><h3>{certificates[lightboxIndex]}</h3><p>Add the certificate image to <code>public/certificates/</code> when available.</p></div>
+            <div className={`certificate-lightbox ${certificateZoomed ? "certificate-zoomed" : ""}`}>
+              <img src="/certificates/machine-expert.jpg" alt={`${certificates[lightboxIndex]} certificate`} />
+            </div>
             <button className="button button-secondary" type="button" aria-pressed={certificateZoomed} onClick={() => setCertificateZoomed((value) => !value)}>{certificateZoomed ? <ZoomOut size={15} /> : <ZoomIn size={15} />}{certificateZoomed ? "Zoom out" : "Zoom in"}</button>
             {certificates.length > 1 && <div className="button-row"><button className="button button-secondary" onClick={() => setLightboxIndex((i) => ((i ?? 0) + certificates.length - 1) % certificates.length)}><ArrowLeft size={15} /> Previous</button><button className="button button-secondary" onClick={() => setLightboxIndex((i) => ((i ?? 0) + 1) % certificates.length)}>Next <ArrowRight size={15} /></button></div>}
           </Modal>

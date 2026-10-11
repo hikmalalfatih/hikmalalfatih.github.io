@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { ArrowDownToLine, ArrowRight, BriefcaseBusiness, GraduationCap, MapPin } from "lucide-react";
 import { awards, certificates, education, experiences, profile, projects } from "../data/profile";
-import BoardArtwork from "./BoardArtwork";
 import Reveal from "./Reveal";
 
 export default function AboutSection({
@@ -15,14 +13,6 @@ export default function AboutSection({
   const [showPortrait, setShowPortrait] = useState(true);
   const [failedImage, setFailedImage] = useState(false);
   const [expandedExperience, setExpandedExperience] = useState<number | null>(0);
-  const [portraitPaused, setPortraitPaused] = useState(false);
-  const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (reduceMotion || portraitPaused) return;
-    const interval = window.setInterval(() => setShowPortrait((value) => !value), 6000);
-    return () => window.clearInterval(interval);
-  }, [portraitPaused, reduceMotion]);
 
   return (
     <section id="about" className="page-section" aria-labelledby="about-title">
@@ -48,37 +38,41 @@ export default function AboutSection({
         </Reveal>
 
         <Reveal className="portrait-reveal" delay={0.12}>
-          <div
-            className="portrait-stage"
-            onMouseEnter={() => setPortraitPaused(true)}
-            onMouseLeave={() => setPortraitPaused(false)}
-            onFocus={() => setPortraitPaused(true)}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                setPortraitPaused(false);
-              }
-            }}
-          >
-            <div className={`portrait-orbit ${showPortrait ? "portrait-show" : "board-show"}`}>
-              {profile.portraitUrl && !failedImage && (
-                <img
-                  className="portrait-image"
-                  src={profile.portraitUrl}
-                  alt="Portrait of Hikmal Alfatih"
-                  onError={() => setFailedImage(true)}
-                  onLoad={() => setFailedImage(false)}
-                />
-              )}
-              {!showPortrait && <BoardArtwork />}
-              {(!profile.portraitUrl || failedImage) && showPortrait && <span className="portrait-fallback">HA</span>}
+          <div className="portrait-stage">
+            <div className="portrait-orbit">
+              <span className="apple-leaf" aria-hidden="true" />
+              <div className="apple-frame">
+                <div className={`apple-frame-content ${showPortrait ? "portrait-show" : "board-show"}`}>
+                  {profile.portraitUrl && !failedImage && (
+                    <img
+                      className="portrait-image"
+                      src={profile.portraitUrl}
+                      alt="Portrait of Hikmal Alfatih"
+                      loading="lazy"
+                      decoding="async"
+                      onError={() => setFailedImage(true)}
+                    />
+                  )}
+                  {!showPortrait && (
+                    <img
+                      className="board-study-image"
+                      src="/images/board-study.jpeg"
+                      alt="Hikmal"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  {(!profile.portraitUrl || failedImage) && showPortrait && <span className="portrait-fallback">HA</span>}
+                </div>
+              </div>
             </div>
             <button
               className="artwork-toggle"
               type="button"
-              aria-label={`Show ${showPortrait ? "logic board artwork" : "portrait"}`}
+              aria-label={`Show ${showPortrait ? "Maley" : "Hikmal"}`}
               onClick={() => setShowPortrait((value) => !value)}
             >
-              <span className="artwork-toggle-dot" /> {showPortrait ? "Board study" : "Portrait"}
+              <span className="artwork-toggle-dot" /> {showPortrait ? "Maley" : "Hikmal"}
             </button>
           </div>
         </Reveal>
@@ -100,7 +94,11 @@ export default function AboutSection({
           <div className="education-list">
             {education.map((item) => (
               <article className="education-item" key={item.institution}>
-                <span className="monogram">{item.institution.slice(0, 2).toUpperCase()}</span>
+                <OrganizationLogo
+                  src={item.logo}
+                  alt={item.institution}
+                  fallback={item.institution.slice(0, 2).toUpperCase()}
+                />
                 <div>
                   <h4>{item.institution}</h4>
                   <p>{item.program}</p>
@@ -122,7 +120,11 @@ export default function AboutSection({
                   aria-controls={`experience-details-${index}`}
                   onClick={() => setExpandedExperience(expandedExperience === index ? null : index)}
                 >
-                  <span className="monogram">{item.organization.replace(/[^A-Z]/g, "").slice(0, 2) || "EX"}</span>
+                  <OrganizationLogo
+                    src={item.logo}
+                    alt={item.organization}
+                    fallback={item.organization.replace(/[^A-Z]/g, "").slice(0, 2) || "EX"}
+                  />
                   <span>
                     <strong>{item.role}</strong>
                     <small>{item.organization} · {item.period}</small>
@@ -152,6 +154,28 @@ export default function AboutSection({
 
 function SectionTitle({ eyebrow, title, id }: { eyebrow: string; title: string; id: string }) {
   return <div className="section-heading"><p className="eyebrow">{eyebrow}</p><h2 id={id}>{title}</h2></div>;
+}
+
+function OrganizationLogo({
+  src,
+  alt,
+  fallback,
+}: {
+  src?: string;
+  alt: string;
+  fallback: string;
+}) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  return (
+    <span className={`monogram ${src && !imageFailed ? "has-logo" : ""}`}>
+      {src && !imageFailed ? (
+        <img src={src} alt={`${alt} logo`} loading="lazy" onError={() => setImageFailed(true)} />
+      ) : (
+        fallback
+      )}
+    </span>
+  );
 }
 
 function StatCard({
