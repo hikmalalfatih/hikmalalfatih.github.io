@@ -38,7 +38,7 @@ export default function ContactSection() {
     if (!supabaseUrl || !supabaseAnonKey) {
       throw new Error("The contact service is not configured yet. Please try again later.");
     }
-    return { "Content-Type": "application/json", apikey: supabaseAnonKey, Authorization: `Bearer ${supabaseAnonKey}` };
+    return { "Content-Type": "application/json", apikey: supabaseAnonKey };
   }, []);
 
   const loadComments = useCallback(async (before?: string) => {

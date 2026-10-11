@@ -40,8 +40,10 @@ Next.js Route Handlers or other server code. This project therefore uses
 Supabase Edge Functions as its independent API host. Never add backend secrets
 to GitHub Pages variables or the static app.
 
-1. Create a Supabase project and copy its project URL, anon key, and service-role
-   key from **Project Settings → API**.
+1. Create a Supabase project and copy its project URL and publishable/anon key
+   from **Project Settings → API**. Supabase automatically provides
+   `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` inside Edge Functions; do not
+   add those reserved `SUPABASE_*` names as custom secrets.
 2. Install the Supabase CLI, authenticate with `npx supabase login`, link the
    project with `npx supabase link --project-ref YOUR_PROJECT_REF`, then apply
    the database and public `avatars` bucket migration:
@@ -63,8 +65,6 @@ to GitHub Pages variables or the static app.
 
    ```bash
    npx supabase secrets set --project-ref YOUR_PROJECT_REF `
-     SUPABASE_URL="https://YOUR_PROJECT_REF.supabase.co" `
-     SUPABASE_SERVICE_ROLE_KEY="YOUR_SERVICE_ROLE_KEY" `
      RESEND_API_KEY="YOUR_RESEND_API_KEY" `
      CONTACT_TO_EMAIL="YOUR_PRIVATE_RECIPIENT_ADDRESS" `
      CONTACT_FROM_EMAIL="onboarding@resend.dev" `
@@ -78,9 +78,9 @@ to GitHub Pages variables or the static app.
 5. Deploy the public functions:
 
    ```bash
-   npx supabase functions deploy contact --project-ref YOUR_PROJECT_REF --no-verify-jwt
-   npx supabase functions deploy comments --project-ref YOUR_PROJECT_REF --no-verify-jwt
-   npx supabase functions deploy avatar-upload --project-ref YOUR_PROJECT_REF --no-verify-jwt
+   npx supabase functions deploy contact --project-ref YOUR_PROJECT_REF --no-verify-jwt --use-api --import-map supabase/functions/deno.json
+   npx supabase functions deploy comments --project-ref YOUR_PROJECT_REF --no-verify-jwt --use-api --import-map supabase/functions/deno.json
+   npx supabase functions deploy avatar-upload --project-ref YOUR_PROJECT_REF --no-verify-jwt --use-api --import-map supabase/functions/deno.json
    ```
 
    Public invocation is intentional. Each function checks the configured
