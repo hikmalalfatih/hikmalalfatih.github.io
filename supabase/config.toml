@@ -1,0 +1,8 @@
+[functions.contact]
+verify_jwt = false
+
+[functions.comments]
+verify_jwt = false
+
+[functions.avatar-upload]
+verify_jwt = false

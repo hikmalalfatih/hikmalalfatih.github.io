@@ -1,5 +1,5 @@
-import Wizard from "./components/Wizard";
+import PortfolioSite from "./components/PortfolioSite";
 
 export default function HomePage() {
-  return <Wizard />;
+  return <PortfolioSite />;
 }
