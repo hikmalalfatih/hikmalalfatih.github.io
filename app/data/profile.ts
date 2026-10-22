@@ -18,7 +18,8 @@ export type PortfolioProject = {
   title: string;
   subtitle: string;
   description: string;
-  image: string;
+  image?: string;
+  preview: "azul-home" | "applenesia" | "maley-agent";
   tags: string[];
   href: string;
 };
@@ -125,8 +126,27 @@ export const projects: PortfolioProject[] = [
     description:
       "A personal project built with help from GitHub Copilot. The site describes itself as a private space for keeping dreams, memories, and feelings close.",
     image: "/projects/azul-home.png",
+    preview: "azul-home",
     tags: ["Web", "GitHub Copilot", "Vercel"],
     href: "https://azul-home.vercel.app",
+  },
+  {
+    title: "Applenesia Tanjung Pinang",
+    subtitle: "Apple Device Repair · Tanjung Pinang",
+    description:
+      "A service website for Applenesia, helping customers explore Apple device repairs, service prices, testimonials, location details, and booking.",
+    preview: "applenesia",
+    tags: ["Next.js", "Apple Services", "Responsive UI"],
+    href: "https://applenesia-tnj.vercel.app",
+  },
+  {
+    title: "Maley Agent",
+    subtitle: "3D AI Agent Mission Control",
+    description:
+      "An interactive mission-control dashboard for an AI agent workspace, with a 3D office scene and views for agent status, task queues, system metrics, and activity.",
+    preview: "maley-agent",
+    tags: ["AI Agents", "3D Interface", "Dashboard"],
+    href: "https://maley-agent.vercel.app",
   },
 ];
 
