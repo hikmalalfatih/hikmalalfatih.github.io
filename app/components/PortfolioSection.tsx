@@ -6,6 +6,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Award,
+  Bot,
   CircuitBoard,
   Code2,
   Cpu,
@@ -24,7 +25,7 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { awards, certificates, projects, skillGroups } from "../data/profile";
+import { awards, certificates, projects, skillGroups, type PortfolioProject } from "../data/profile";
 import Reveal from "./Reveal";
 
 type Tab = "projects" | "certificates" | "awards" | "tech";
@@ -43,10 +44,9 @@ export default function PortfolioSection({
   onTabChange?: (tab: string) => void;
 }) {
   const [tab, setTab] = useState<Tab>((tabs.find((item) => item.id === initialTab)?.id ?? "projects") as Tab);
-  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [certificateZoomed, setCertificateZoomed] = useState(false);
-  const [imageFailed, setImageFailed] = useState(false);
 
   const selectTab = useCallback((next: Tab) => {
     setTab(next);
@@ -82,11 +82,11 @@ export default function PortfolioSection({
   }, [lightboxIndex]);
 
   useEffect(() => {
-    if (!detailsOpen && lightboxIndex === null) return;
+    if (!selectedProject && lightboxIndex === null) return;
     const old = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = old; };
-  }, [detailsOpen, lightboxIndex]);
+  }, [selectedProject, lightboxIndex]);
 
   return (
     <section id="portfolio" className="page-section" aria-labelledby="portfolio-title">
@@ -132,23 +132,14 @@ export default function PortfolioSection({
             <div className="project-grid">
               {projects.map((project) => (
                 <article className="glass project-card" key={project.title}>
-                  <div className="project-visual">
-                    {project.image && !imageFailed ? (
-                      <img src={project.image} alt={`${project.title} website preview`} loading="lazy" decoding="async" onError={() => setImageFailed(true)} />
-                    ) : (
-                      <div className="project-placeholder" role="img" aria-label="Azul Home screenshot to be added">
-                        <span className="placeholder-window"><span /><span /><span /></span>
-                        <strong>Azul Home</strong><small>Ruang Temu — rumah kecil kita</small>
-                      </div>
-                    )}
-                  </div>
+                  <ProjectPreview project={project} />
                   <div className="project-content">
                     <div><p className="eyebrow">Featured project</p><h3>{project.title}</h3><p className="project-subtitle">{project.subtitle}</p></div>
                     <p className="muted-copy">{project.description}</p>
                     <div className="tag-list">{project.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
                     <div className="button-row">
                       <a className="button button-primary" href={project.href} target="_blank" rel="noopener noreferrer">Live Demo <ExternalLink size={15} /></a>
-                      <button className="button button-secondary" onClick={() => setDetailsOpen(true)}>Details <ArrowRight size={15} /></button>
+                      <button className="button button-secondary" onClick={() => setSelectedProject(project)}>Details <ArrowRight size={15} /></button>
                     </div>
                   </div>
                 </article>
@@ -192,12 +183,12 @@ export default function PortfolioSection({
       </AnimatePresence>
 
       <AnimatePresence>
-        {detailsOpen && (
-          <Modal title={projects[0].title} onClose={() => setDetailsOpen(false)}>
-            <div className="project-modal-visual"><span className="placeholder-window"><span /><span /><span /></span><h3>{projects[0].title}</h3></div>
-            <p className="muted-copy">{projects[0].description} {projects[0].subtitle} translates to “our little home.”</p>
-            <div className="tag-list">{projects[0].tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
-            <div className="button-row"><a className="button button-primary" href={projects[0].href} target="_blank" rel="noopener noreferrer">Visit project <ExternalLink size={15} /></a></div>
+        {selectedProject && (
+          <Modal title={selectedProject.title} onClose={() => setSelectedProject(null)}>
+            <ProjectPreview project={selectedProject} />
+            <p className="muted-copy">{selectedProject.description}</p>
+            <div className="tag-list">{selectedProject.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+            <div className="button-row"><a className="button button-primary" href={selectedProject.href} target="_blank" rel="noopener noreferrer">Visit project <ExternalLink size={15} /></a></div>
           </Modal>
         )}
         {lightboxIndex !== null && (
@@ -211,6 +202,59 @@ export default function PortfolioSection({
         )}
       </AnimatePresence>
     </section>
+  );
+}
+
+function ProjectPreview({ project }: { project: PortfolioProject }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  return (
+    <div className="project-visual">
+      {project.image && !imageFailed ? (
+        <img
+          src={project.image}
+          alt={`${project.title} website preview`}
+          loading="lazy"
+          decoding="async"
+          onError={() => setImageFailed(true)}
+        />
+      ) : project.preview === "applenesia" ? (
+        <div className="project-preview project-preview-applenesia" role="img" aria-label="Preview of the Applenesia Apple service website">
+          <div className="applenesia-preview-nav"><strong>Applenesia<span>.tnj</span></strong><span>LAYANAN　 DAFTAR HARGA　 LOKASI</span></div>
+          <div className="applenesia-preview-hero">
+            <p>APPLE SERVICE SPECIALIST · TANJUNG PINANG</p>
+            <h4>Spesialis Servis Apple <span>Terbaik di Tanjung Pinang.</span></h4>
+            <small>Layanan perbaikan iPhone, MacBook, iPad, dan Apple Watch.</small>
+            <span className="applenesia-preview-button">Jadwalkan servis</span>
+          </div>
+        </div>
+      ) : project.preview === "maley-agent" ? (
+        <div className="project-preview project-preview-agent" role="img" aria-label="Preview of the Maley Agent AI mission-control dashboard">
+          <aside className="agent-preview-sidebar">
+            <strong><span /> Mission Control</strong>
+            <small>pusat kendali tim AI</small>
+            <span className="agent-preview-active">▣　Maley Office</span>
+            <span>🤖　Agent Overview</span>
+            <span>📋　Task Queue</span>
+            <span>▥　System Metrics</span>
+            <span>◷　Real-Time Log</span>
+          </aside>
+          <div className="agent-preview-main">
+            <div className="agent-preview-top"><strong>maley Office</strong><span>TUNNEL OFF　 ● Resume</span></div>
+            <div className="agent-preview-scene">
+              <div className="agent-preview-window"><span>BANDUNG · 22/10/26</span><strong>maleyMarginCall</strong><small>TRADING ROOM · MALey OFFICE</small></div>
+              <div className="agent-preview-floor"><Bot size={54} strokeWidth={1.3} /><span>AI AGENT　 ·　 READY</span></div>
+              <div className="agent-preview-console"><i /><i /><i /><i /></div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="project-placeholder" role="img" aria-label="Azul Home project preview">
+          <span className="placeholder-window"><span /><span /><span /></span>
+          <strong>{project.title}</strong><small>{project.subtitle}</small>
+        </div>
+      )}
+    </div>
   );
 }
 
