@@ -291,7 +291,7 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
     <motion.div className="modal-backdrop" role="presentation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <motion.div ref={modalRef} className="glass modal-card" role="dialog" aria-modal="true" aria-label={title} initial={{ opacity: 0, y: 20, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12, scale: 0.98 }} transition={{ duration: 0.28 }}>
         <div className="modal-header"><h2>{title}</h2><button className="icon-button" aria-label="Close dialog" onClick={onClose}><X size={18} /></button></div>
-        {children}
+        <div className="modal-body">{children}</div>
       </motion.div>
     </motion.div>
   );
