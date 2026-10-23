@@ -1,7 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 
+const EXTRA_ALLOWED_ORIGINS = ["https://maley.vercel.app"];
+
+export function isAllowedOrigin(origin: string | null) {
+  if (!origin) return false;
+  const normalized = origin.replace(/\/$/, "");
+  const primary = Deno.env.get("SITE_URL")?.replace(/\/$/, "");
+  return normalized === primary || EXTRA_ALLOWED_ORIGINS.includes(normalized);
+}
+
 export function corsHeaders(origin: string | null) {
-  const allowedOrigin = Deno.env.get("SITE_URL")?.replace(/\/$/, "");
   const headers: Record<string, string> = {
     "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
@@ -11,8 +19,8 @@ export function corsHeaders(origin: string | null) {
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "strict-origin-when-cross-origin",
   };
-  if (allowedOrigin && origin?.replace(/\/$/, "") === allowedOrigin) {
-    headers["Access-Control-Allow-Origin"] = allowedOrigin;
+  if (isAllowedOrigin(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin!.replace(/\/$/, "");
   }
   return headers;
 }
@@ -38,9 +46,7 @@ export function optionsResponse(request: Request) {
 }
 
 export function requestOriginAllowed(request: Request) {
-  const origin = request.headers.get("origin");
-  const allowedOrigin = Deno.env.get("SITE_URL")?.replace(/\/$/, "");
-  return Boolean(allowedOrigin && origin?.replace(/\/$/, "") === allowedOrigin);
+  return isAllowedOrigin(request.headers.get("origin"));
 }
 
 export function supabaseAdmin() {

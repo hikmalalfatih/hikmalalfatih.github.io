@@ -124,7 +124,7 @@ export const projects: PortfolioProject[] = [
     title: "Azul Home",
     subtitle: "Ruang Temu — rumah kecil kita",
     description:
-      "A personal project built with help from GitHub Copilot. The site describes itself as a private space for keeping dreams, memories, and feelings close.",
+      "A personal project built with help from GitHub Copilot. The site describes itself as a private space for keeping dreams, memories, and feelings close. It is a private space, so the live demo is password-protected.",
     image: "/projects/azul-home.png",
     preview: "azul-home",
     tags: ["Web", "GitHub Copilot", "Vercel"],

@@ -12,9 +12,11 @@ export const metadata = {
     url: "https://hikmalalfatih.github.io",
     siteName: "Hikmal Alfatih",
     type: "website",
+    images: ["/images/profile.jpeg"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
+    images: ["/images/profile.jpeg"],
     title: "Hikmal Alfatih | Apple Hardware Repair Specialist",
     description: "Board-level Apple device repair, precision diagnostics, and AI-powered productivity.",
   },

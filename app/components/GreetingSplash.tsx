@@ -21,11 +21,28 @@ export default function GreetingSplash({ onComplete }: { onComplete: () => void 
   const [finalFrame, setFinalFrame] = useState(false);
 
   useEffect(() => {
+    let alreadySeen = false;
+    try {
+      alreadySeen = window.sessionStorage.getItem("greeting-splash-seen") === "1";
+    } catch {
+      alreadySeen = false;
+    }
+    if (alreadySeen) {
+      setVisible(false);
+      onComplete();
+      return;
+    }
+
     let greetingTimer = 0;
     let finishTimer = 0;
     let greetingIndex = 0;
 
     const close = () => {
+      try {
+        window.sessionStorage.setItem("greeting-splash-seen", "1");
+      } catch {
+        // Session storage unavailable: the splash will simply play again.
+      }
       setFinishing(true);
       document.documentElement.classList.remove("splash-active");
       finishTimer = window.setTimeout(() => {
