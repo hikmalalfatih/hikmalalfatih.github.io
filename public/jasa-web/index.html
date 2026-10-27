@@ -158,6 +158,8 @@
   .cta-band h2{font-size:clamp(28px,4.4vw,42px);color:var(--ink);margin-bottom:14px}
 
   @media (max-width:820px){.grid3{grid-template-columns:1fr}.grid-proyek{grid-template-columns:1fr}.hero-inner{padding:72px 20px 64px}.flip-front-bar{flex-wrap:wrap;gap:4px 12px}.flip-hint{white-space:normal}}
+  /* Mobile: headline jangan pecah per huruf, nav jangan berdesakan */
+  @media (max-width:520px){nav{padding:16px 0}.brand{font-size:14px}.nav-cta{font-size:12px;padding:8px 13px;white-space:nowrap;flex-shrink:0}.nowrap{white-space:nowrap}.hero-inner{padding:56px 18px 52px}.eyebrow{font-size:10px;letter-spacing:.16em;padding:7px 12px}.stage h1{font-size:clamp(32px,9.5vw,42px)}.stage .sub{font-size:15px}.rot-word{min-width:0}}
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
     html{scroll-behavior:auto}.split .char{opacity:1;transform:none}.anim{opacity:1;transform:none;filter:none}.blur-title{opacity:1;filter:none}
@@ -168,7 +170,7 @@
 <div class="wrap">
 
   <nav>
-    <div class="brand">hikmal<span>alfatih</span> — Jasa Web UMKM</div>
+    <div class="brand">hikmal<span>alfatih</span> <span class="nowrap">— Jasa Web UMKM</span></div>
     <a class="nav-cta magnet" href="#paket">Lihat Paket</a>
   </nav>
 
@@ -386,7 +388,14 @@
           h.appendChild(splitTextNode(part, false));
         });
       } else if (n.nodeName === 'EM') {
-        h.appendChild(splitTextNode(n.textContent, true));
+        /* Sama seperti teks biasa: pecah per KATA, bukan satu blok utuh.
+           Sebelumnya "kelihatan mahal." jadi satu .word dengan spasi non-breaking,
+           sehingga di layar sempit kata pecah per huruf (kelihat / a / n). */
+        n.textContent.split(/(\s+)/).forEach(function(part){
+          if (!part) return;
+          if (/^\s+$/.test(part)) { h.appendChild(document.createTextNode(' ')); return; }
+          h.appendChild(splitTextNode(part, true));
+        });
       }
     });
   })();
