@@ -232,6 +232,21 @@
         { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: i * 0.1,
           scrollTrigger: { trigger: '.intro__stats', start: 'top 85%' } });
     });
+    /* Count-up angka statistik saat di-scroll ke bawah */
+    gsap.utils.toArray('.stat__number').forEach(function (numEl) {
+      var target = parseInt(numEl.getAttribute('data-target'), 10);
+      if (!target) return;
+      var textNode = numEl.firstChild;
+      if (!textNode) return;
+      textNode.textContent = '0';
+      var obj = { v: 0 };
+      gsap.to(obj, {
+        v: target, duration: target > 100 ? 2 : 1.2, ease: 'power2.out',
+        scrollTrigger: { trigger: numEl, start: 'top 88%', once: true },
+        onUpdate: function () { textNode.textContent = String(Math.round(obj.v)); },
+        onComplete: function () { textNode.textContent = String(target); },
+      });
+    });
   }
 
   function initServices() {
