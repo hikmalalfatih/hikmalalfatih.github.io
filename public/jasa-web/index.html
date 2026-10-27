@@ -126,6 +126,11 @@
   .proj-links a:hover{border-color:var(--ink)}
   .proj-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 11px;margin-bottom:14px}
 
+  /* ---------- VIDEO DEMO (autoplay, tanpa klik) ---------- */
+  .demo-video{margin-top:20px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#000}
+  .demo-video video{width:100%;display:block;aspect-ratio:1280/606}
+  .demo-cap{padding:14px 18px;color:var(--muted);font-size:13.5px;text-align:center;border-top:1px solid var(--line)}
+
   /* ---------- LANGKAH ---------- */
   .step-n{font-family:"Fraunces",serif;font-style:italic;font-size:30px;color:var(--muted);display:block;margin-bottom:12px}
 
@@ -263,6 +268,10 @@
         </div>
       </div>
     </div>
+    <div class="demo-video anim">
+      <video id="demo-video" src="demo-maley-clothes.mp4" poster="demo-maley-clothes-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Demo maley clothes: kaos muter pas di-hover, klik buat inspect, ganti warna"></video>
+      <p class="demo-cap">Demo maley clothes — jalan sendiri, tanpa klik: kaos muter pas di-hover, klik buat inspect depan-belakang, ganti warna hitam-putih.</p>
+    </div>
   </section>
 
   <!-- LANGKAH -->
@@ -311,6 +320,13 @@
 <script>
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Video demo: diam kalau reduced motion ---------- */
+  (function(){
+    if (!reduced) return;
+    var v = document.getElementById('demo-video');
+    if (v) { v.removeAttribute('autoplay'); v.pause(); }
+  })();
 
   /* ---------- SplitText (hero headline, per huruf) ---------- */
   (function(){
