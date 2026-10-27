@@ -134,6 +134,7 @@
   .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
   .flip-back{transform:rotateY(180deg);background:#131313}
   .flip-front-img{flex:1;background:#fff url(maley-clothes-rack.jpg) center/contain no-repeat}
+  .flip-front-img.proj02{background:#0a0a0a url(portofolio-hero.jpg) center/cover no-repeat}
   .flip-front-bar{background:#0a0a0a;color:#fafafa;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;font-size:13.5px}
   .flip-front-bar b{font-size:14px}
   .flip-hint{color:#a3a3a3;font-size:12.5px;white-space:nowrap}
@@ -281,11 +282,22 @@
           </div>
         </div>
       </div>
-      <div class="card tilt anim">
-        <span class="proj-tag">Proyek 02</span>
-        <h3>Portofolio Pribadi</h3><p>Situs portofolio dengan galeri proyek, sertifikat, buku tamu, dan form kontak yang tersambung ke database — dibangun dan dirawat sendiri.</p>
-        <div class="proj-links">
-          <a href="https://hikmalalfatih.github.io" target="_blank" rel="noopener">hikmalalfatih.github.io →</a>
+      <div class="flip-card tilt anim" id="flip-proj02">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="flip-front-img proj02" role="img" aria-label="Portofolio pribadi: HP mati total, bisa hidup lagi"></div>
+            <div class="flip-front-bar"><b>Proyek 02 — Portofolio Pribadi</b><span class="flip-hint">Klik kartu untuk lihat demo →</span></div>
+          </div>
+          <div class="flip-face flip-back">
+            <video id="demo-portofolio-video" src="demo-portofolio.mp4" poster="demo-portofolio-poster.jpg" muted loop playsinline preload="metadata" aria-label="Demo portofolio pribadi: hero, layanan, riwayat, karya, kontak"></video>
+            <div class="flip-back-bar">
+              <div class="proj-links">
+                <a href="https://hikmalalfatih.github.io" target="_blank" rel="noopener">Buka portofolio →</a>
+                <a href="https://github.com/hikmalalfatih/hikmalalfatih.github.io" target="_blank" rel="noopener">GitHub →</a>
+              </div>
+              <span class="flip-hint">Klik kartu untuk kembali</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -338,15 +350,15 @@
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Flip card Proyek-01: klik = balik, video jalan di belakang ---------- */
+  /* ---------- Flip card Proyek: klik = balik, video jalan di belakang ---------- */
   (function(){
-    var card = document.getElementById('flip-proj01');
-    if (!card) return;
-    var v = document.getElementById('demo-video');
-    card.addEventListener('click', function(e){
-      if (e.target.closest('a')) return; /* link diklik, jangan flip */
-      var flipped = card.classList.toggle('flipped');
-      if (v) { if (flipped) { v.play().catch(function(){}); } else { v.pause(); } }
+    document.querySelectorAll('.flip-card').forEach(function(card){
+      var v = card.querySelector('video');
+      card.addEventListener('click', function(e){
+        if (e.target.closest('a')) return; /* link diklik, jangan flip */
+        var flipped = card.classList.toggle('flipped');
+        if (v) { if (flipped) { v.play().catch(function(){}); } else { v.pause(); } }
+      });
     });
   })();
 
