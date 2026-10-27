@@ -126,10 +126,20 @@
   .proj-links a:hover{border-color:var(--ink)}
   .proj-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 11px;margin-bottom:14px}
 
-  /* ---------- VIDEO DEMO (autoplay, tanpa klik) ---------- */
-  .demo-video{margin-top:20px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#000}
-  .demo-video video{width:100%;display:block;aspect-ratio:1280/606}
-  .demo-cap{padding:14px 18px;color:var(--muted);font-size:13.5px;text-align:center;border-top:1px solid var(--line)}
+  /* ---------- FLIP CARD Proyek-01 (depan: gambar, belakang: video) ---------- */
+  .flip-card{position:relative;aspect-ratio:4/3;perspective:1000px;cursor:pointer;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+  .flip-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.1,.2,1)}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
+  .flip-back{transform:rotateY(180deg);background:#131313}
+  .flip-front-img{flex:1;background:#fff url(maley-clothes-rack.jpg) center/contain no-repeat}
+  .flip-front-bar{background:#0a0a0a;color:#fafafa;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;font-size:13.5px}
+  .flip-front-bar b{font-size:14px}
+  .flip-hint{color:#a3a3a3;font-size:12.5px;white-space:nowrap}
+  .flip-back video{width:100%;display:block}
+  .flip-back-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px 16px;text-align:center}
+  .flip-back-bar .proj-links{margin-top:0}
+  @media (prefers-reduced-motion: reduce){.flip-inner{transition:none}}
 
   /* ---------- LANGKAH ---------- */
   .step-n{font-family:"Fraunces",serif;font-style:italic;font-size:30px;color:var(--muted);display:block;margin-bottom:12px}
@@ -252,12 +262,22 @@
     <div class="kicker anim">Proyek</div>
     <h2 class="sec-title blur-title">Nggak cuma janji — ini yang sudah tayang</h2>
     <div class="grid3" style="grid-template-columns:1fr 1fr;max-width:860px;margin-left:auto;margin-right:auto">
-      <div class="card tilt anim">
-        <span class="proj-tag">Proyek 01 — Terbaru</span>
-        <h3>maley clothes</h3><p>Toko kaos interaktif: kaos muter pas di-hover, klik buat inspect depan-belakang, dan ganti warna hitam-putih langsung di tempat. Dibangun tanpa framework, cuma JavaScript dan video putaran kaos.</p>
-        <div class="proj-links">
-          <a href="https://maley-clothes.vercel.app" target="_blank" rel="noopener">Buka maley clothes →</a>
-          <a href="https://github.com/hikmalalfatih/maley-clothes" target="_blank" rel="noopener">GitHub →</a>
+      <div class="flip-card tilt anim" id="flip-proj01">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="flip-front-img" role="img" aria-label="maley clothes: tiga kaos di gantungan"></div>
+            <div class="flip-front-bar"><b>Proyek 01 — maley clothes</b><span class="flip-hint">Klik kartu untuk lihat demo →</span></div>
+          </div>
+          <div class="flip-face flip-back">
+            <video id="demo-video" src="demo-maley-clothes.mp4" poster="demo-maley-clothes-poster.jpg" muted loop playsinline preload="metadata" aria-label="Demo maley clothes: kaos muter pas di-hover, klik buat inspect, ganti warna"></video>
+            <div class="flip-back-bar">
+              <div class="proj-links">
+                <a href="https://maley-clothes.vercel.app" target="_blank" rel="noopener">Buka maley clothes →</a>
+                <a href="https://github.com/hikmalalfatih/maley-clothes" target="_blank" rel="noopener">GitHub →</a>
+              </div>
+              <span class="flip-hint">Klik kartu untuk kembali</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card tilt anim">
@@ -267,10 +287,6 @@
           <a href="https://hikmalalfatih.github.io" target="_blank" rel="noopener">hikmalalfatih.github.io →</a>
         </div>
       </div>
-    </div>
-    <div class="demo-video anim">
-      <video id="demo-video" src="demo-maley-clothes.mp4" poster="demo-maley-clothes-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Demo maley clothes: kaos muter pas di-hover, klik buat inspect, ganti warna"></video>
-      <p class="demo-cap">Demo maley clothes — jalan sendiri, tanpa klik: kaos muter pas di-hover, klik buat inspect depan-belakang, ganti warna hitam-putih.</p>
     </div>
   </section>
 
@@ -321,11 +337,16 @@
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Video demo: diam kalau reduced motion ---------- */
+  /* ---------- Flip card Proyek-01: klik = balik, video jalan di belakang ---------- */
   (function(){
-    if (!reduced) return;
+    var card = document.getElementById('flip-proj01');
+    if (!card) return;
     var v = document.getElementById('demo-video');
-    if (v) { v.removeAttribute('autoplay'); v.pause(); }
+    card.addEventListener('click', function(e){
+      if (e.target.closest('a')) return; /* link diklik, jangan flip */
+      var flipped = card.classList.toggle('flipped');
+      if (v) { if (flipped) { v.play().catch(function(){}); } else { v.pause(); } }
+    });
   })();
 
   /* ---------- SplitText (hero headline, per huruf) ---------- */
