@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hikmal Alfatih — Apple Hardware Repair Specialist</title>
+<meta name="description" content="Hikmal Alfatih, teknisi Apple board-level freelance. Diagnosa dulu, cek gratis, bayar hanya kalau berhasil. iPhone, iPad, Mac, Apple Watch.">
+<meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader__inner">
+    <div class="preloader__logo">HIKMAL<span class="accent">.</span></div>
+    <div class="preloader__bar-wrap">
+      <div class="preloader__bar" id="preloaderBar"></div>
+    </div>
+    <div class="preloader__counter">
+      <span class="preloader__pct" id="preloaderPct">0</span>
+      <span class="preloader__pct-sign">%</span>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav__logo">HIKMAL<span class="accent">.</span></div>
+  <div class="nav__links">
+    <a href="#layanan">Layanan</a>
+    <a href="#karya">Karya</a>
+    <a href="https://wa.me/6281903031378?text=Halo%20Kak%2C%20saya%20mau%20tanya%20soal%20service%20Apple." target="_blank" rel="noopener" class="nav__cta">Chat WhatsApp</a>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero__pin">
+    <canvas class="hero__canvas" id="heroCanvas"></canvas>
+    <div class="hero__overlay"></div>
+    <div class="hero__fade-out"></div>
+    <div class="hero__content">
+      <p class="hero__tag">Apple Hardware Repair Specialist</p>
+      <h1 class="hero__heading">
+        <span class="hero__line">HP mati total?</span>
+        <span class="hero__line">bisa <em>hidup</em> lagi.</span>
+      </h1>
+      <p class="hero__sub">Teknisi board-level Apple di Bandung. Diagnosa dulu, cek gratis, bayar hanya kalau berhasil.</p>
+      <a href="https://wa.me/6281903031378?text=Halo%20Kak%2C%20saya%20mau%20tanya%20soal%20service%20Apple." target="_blank" rel="noopener" class="btn">Chat WhatsApp <span class="btn__arrow">&rarr;</span></a>
+    </div>
+    <div class="hero__scroll-indicator">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<section class="video-transition">
+  <div class="video-transition__inner">
+    <div class="video-transition__frame">
+      <canvas id="vtCanvas" class="video-transition__canvas"></canvas>
+    </div>
+    <div class="video-transition__overlay"></div>
+    <div class="video-transition__text">
+      <span class="vt-word">Diagnosa</span>
+      <span class="vt-dot"></span>
+      <span class="vt-word">Ganti Part</span>
+      <span class="vt-dot"></span>
+      <span class="vt-word">Hidup Lagi</span>
+    </div>
+  </div>
+</section>
+
+<!-- DARI SINI ISINYA BEDA: PUNYA HIKMAL -->
+<section class="intro" id="tentang">
+  <div class="intro__video-wrap">
+    <img class="intro__video" src="photos/cracked-back.jpg" alt="">
+    <div class="intro__overlay"></div>
+  </div>
+  <div class="intro__content">
+    <div class="intro__label">
+      <span class="label-line"></span>
+      <span>Tentang Saya</span>
+    </div>
+    <h2 class="intro__heading reveal-text">
+      Saya tidak sekadar ganti part —<br>
+      saya mengembalikan perangkat yang sudah <em>divonis</em> mati.
+    </h2>
+    <div class="intro__cols">
+      <div class="intro__col reveal-up">
+        <p>Saya Hikmal Alfatih, teknisi hardware Apple dengan pengalaman dari perbaikan interface sampai diagnosa board-level. Fokus saya: perbaikan yang rapi dan bisa dipertanggungjawabkan, bukan perbaikan cepat yang asal jadi. Saya juga membangun website sendiri dengan bantuan AI tools seperti GitHub Copilot — situs ini salah satunya, dibangun vanilla tanpa framework.</p>
+      </div>
+      <div class="intro__col reveal-up">
+        <img class="intro__portrait" src="photos/portrait.jpg" alt="Hikmal Alfatih">
+        <p class="intro__caption">Hikmal Alfatih — teknisi &amp; pembangun situs ini.</p>
+      </div>
+    </div>
+    <div class="intro__stats">
+      <div class="stat reveal-up">
+        <div class="stat__inner">
+          <span class="stat__number">4<span class="stat__plus">+</span></span>
+          <span class="stat__label">Tahun Pengalaman</span>
+        </div>
+      </div>
+      <div class="stat reveal-up">
+        <div class="stat__inner">
+          <span class="stat__number">4</span>
+          <span class="stat__label">Perusahaan Dilalui</span>
+        </div>
+      </div>
+      <div class="stat reveal-up">
+        <div class="stat__inner">
+          <span class="stat__number">6</span>
+          <span class="stat__label">Lini Device Ditangani</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="layanan">
+  <div class="services__inner">
+    <div class="services__left">
+      <div class="services__sticky">
+        <span class="services__number">01</span>
+        <h2 class="services__title">Layanan</h2>
+        <p class="services__desc">Kerusakan apapun, termasuk mesin mati total. Diagnosa dulu, biaya dikabari setelah diagnosa, dikerjakan kalau kamu setuju. Cek gratis — kalau tidak berhasil, tidak ada biaya apapun.</p>
+      </div>
+    </div>
+    <div class="services__right">
+      <div class="service-item" data-index="01">
+        <span class="service-item__index">01</span>
+        <div class="service-item__content">
+          <h3>Ganti LCD</h3>
+          <p>Layar retak, bergaris, atau tidak tampil. Jasa: 5–8 Rp30rb · X–12 Rp50rb · 13–14 Rp75rb · 15–17 Rp100rb, di luar part.</p>
+        </div>
+      </div>
+      <div class="service-item" data-index="02">
+        <span class="service-item__index">02</span>
+        <div class="service-item__content">
+          <h3>Ganti Baterai</h3>
+          <p>Baterai drop, kembung, atau HP mati-mati. Jasa sesuai series, harga part dikabari dulu.</p>
+        </div>
+      </div>
+      <div class="service-item" data-index="03">
+        <span class="service-item__index">03</span>
+        <div class="service-item__content">
+          <h3>Kamera</h3>
+          <p>Kamera bergetar atau blur bisa dicoba repair, tapi baiknya ganti langsung — repair jangka pendek biasanya rusak lagi.</p>
+        </div>
+      </div>
+      <div class="service-item" data-index="04">
+        <span class="service-item__index">04</span>
+        <div class="service-item__content">
+          <h3>IC / Mesin Mati Total</h3>
+          <p>Dicek dulu; kalau kendala mesin, harga IC sudah termasuk part. iPhone mulai Rp200rb (series 6), naik Rp100rb per series. Mac mulai Rp1,25jt.</p>
+        </div>
+      </div>
+      <div class="service-item" data-index="05">
+        <span class="service-item__index">05</span>
+        <div class="service-item__content">
+          <h3>Face ID TrueDepth</h3>
+          <p>Harus dicoba dulu — harga berlaku kalau berhasil. X–11 Rp300rb · 12–13 Rp400rb · 14–15 Rp500rb. Perangkat ditinggal satu hari.</p>
+        </div>
+      </div>
+      <div class="service-item" data-index="06">
+        <span class="service-item__index">06</span>
+        <div class="service-item__content">
+          <h3>iPad &amp; Mac</h3>
+          <p>iPad: lama Rp75rb · menengah Rp100rb · baru Rp125rb · Pro 11 &amp; 12.9 Rp150rb. Mac: jasa pasang part per pekerjaan, Air &amp; Pro 13 Rp200rb · Pro 14/16 Rp250rb · mini Rp150rb · iMac Rp300rb. Install ulang Rp250rb. Seal waterproof baru +Rp10rb.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="gallery-track">
+    <img src="photos/lcd.jpg" alt="LCD iPhone">
+    <img src="photos/battery-swap.jpg" alt="Pergantian baterai iPhone">
+    <img src="photos/camera-flex.jpg" alt="Fleksibel kamera iPhone">
+    <img src="photos/board-study.jpg" alt="Papan mesin iPhone">
+    <img src="photos/dynamic-island.jpg" alt="Dynamic Island iPhone">
+    <img src="photos/ipad.jpg" alt="iPad">
+    <img src="photos/macbook.jpg" alt="MacBook">
+    <img src="photos/shattered-lcd.jpg" alt="LCD iPhone hancur">
+    <img src="photos/battery.jpg" alt="Baterai iPhone">
+    <img src="photos/lineup.jpg" alt="Jajaran perangkat Apple">
+  </div>
+</section>
+
+<section class="riwayat" id="riwayat">
+  <div class="riwayat__content">
+    <div class="intro__label">
+      <span class="label-line"></span>
+      <span>Riwayat</span>
+    </div>
+    <div class="row-item">
+      <span class="row-item__meta">Sep 2025 — Sekarang · Bandung</span>
+      <h3>Machine Expert — Applenesia</h3>
+      <p>Diagnosa kerusakan mainboard, IC replacement, ACP, reballing, soldering presisi, dan board swap untuk iPhone dan iPad mati total.</p>
+    </div>
+    <div class="row-item">
+      <span class="row-item__meta">Nov 2023 — Sep 2025 · Bandung</span>
+      <h3>Interface Expert — PT. Eka Putra Berkat</h3>
+      <p>Ganti display, baterai, dan komponen interface untuk iPhone, iPad, MacBook, dan Apple Watch.</p>
+    </div>
+    <div class="row-item">
+      <span class="row-item__meta">Okt 2022 — Jul 2023 · Jakarta Barat</span>
+      <h3>Interface Expert — PT. iColor Digital Indonesia</h3>
+      <p>Perbaikan layar, baterai, tombol, dan hardware Apple lainnya.</p>
+    </div>
+    <div class="row-item">
+      <span class="row-item__meta">Apr 2022 — Sep 2022</span>
+      <h3>Account Executive — MyRepublic ID</h3>
+      <p>Pengalaman layanan pelanggan sebelum fokus penuh ke teknisi hardware.</p>
+    </div>
+    <div class="row-item">
+      <span class="row-item__meta">Pendidikan</span>
+      <h3>Universitas Terbuka — S1 Sistem Informasi</h3>
+      <p>Sedang berjalan. Sebelumnya: PPKD Jakarta Barat (Computer Operator Training, 2023).</p>
+    </div>
+    <div class="row-item row-item--cert">
+      <img src="photos/certificate.jpg" alt="Sertifikat Machine Expert">
+      <div>
+        <span class="row-item__meta">Sertifikat</span>
+        <h3>Machine Expert Certification</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="karya" id="karya">
+  <div class="karya__content">
+    <div class="intro__label">
+      <span class="label-line"></span>
+      <span>Karya</span>
+    </div>
+    <div class="row-item row-item--work">
+      <img src="photos/maley-clothes.jpg" alt="Toko kaos interaktif maley clothes">
+      <div>
+        <h3>maley clothes</h3>
+        <p>Toko kaos interaktif: kaos muter pas di-hover, klik buat inspect depan-belakang, ganti warna hitam-putih. Dibangun tanpa framework.</p>
+        <p class="row-item__links"><a href="https://maley-clothes.vercel.app" target="_blank" rel="noopener">Buka situs &rarr;</a> <a href="https://github.com/hikmalalfatih/maley-clothes" target="_blank" rel="noopener">GitHub &rarr;</a></p>
+      </div>
+    </div>
+    <div class="row-item row-item--work">
+      <div>
+        <h3>Jasa Web UMKM</h3>
+        <p>Landing page jasa pembuatan website UMKM: tema hitam-putih-abu, animasi gaya React Bits, dan kartu proyek flip dengan video demo.</p>
+        <p class="row-item__links"><a href="https://hikmalalfatih.github.io/jasa-web/" target="_blank" rel="noopener">Buka halaman &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cinematic" id="break">
+  <div class="cinematic__sticky">
+    <div class="cinematic__video-frame">
+      <img class="cinematic__img" src="photos/hero-flatlay.jpg" alt="Perangkat Apple: iPhone, iPad, MacBook, dan Apple Watch">
+    </div>
+    <div class="cinematic__overlay"></div>
+    <div class="cinematic__content">
+      <h2 class="cinematic__heading">
+        <span class="cin-line">Dicek dulu.</span>
+        <span class="cin-line">Baru divonis.</span>
+      </h2>
+    </div>
+    <div class="cinematic__counter">
+      <span class="cinematic__count">00</span>
+      <span class="cinematic__count-label">% revealed</span>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontak">
+  <div class="contact__content">
+    <div class="contact__label">
+      <span class="label-line"></span>
+      <span>Hubungi Saya</span>
+    </div>
+    <h2 class="contact__heading reveal-text">
+      Perangkat rusak?<br>Ceritakan dulu.
+    </h2>
+    <a href="https://wa.me/6281903031378?text=Halo%20Kak%2C%20saya%20mau%20tanya%20soal%20service%20Apple." target="_blank" rel="noopener" class="contact__email reveal-up">Chat WhatsApp — 0819-0303-1378</a>
+    <p class="contact__note reveal-up">Lokasi terima device: di Pasar Kreatif, Cibeunying Kaler, Bandung. Saya freelance — kadang mengerjakan di toko, kadang di kos. Yang tidak bisa dibantu: HP nyangkut iCloud, update OS iPhone bypass, dan buka password MacBook.</p>
+    <div class="contact__sticker reveal-up"><img src="photos/portrait-sticker.jpg" alt="Stiker wajah Hikmal Alfatih"></div>
+    <form id="contactForm" class="contact__form reveal-up">
+      <h3>Kirim pesan</h3>
+      <input name="name" type="text" placeholder="Nama kamu" required maxlength="60">
+      <input name="email" type="email" placeholder="Email kamu" required maxlength="254">
+      <textarea name="message" placeholder="Perangkat apa, kerusakannya apa? (min. 10 karakter)" required maxlength="2000" rows="4"></textarea>
+      <button class="btn" type="submit">Kirim pesan</button>
+      <p class="form-msg" id="contactMsg"></p>
+    </form>
+    <div class="contact__comments reveal-up">
+      <h3>Komentar</h3>
+      <div id="commentList"><p class="form-msg">Memuat komentar…</p></div>
+      <form id="commentForm" class="contact__form contact__form--inline">
+        <input name="name" type="text" placeholder="Nama kamu" required maxlength="60">
+        <textarea name="comment" placeholder="Tulis komentar…" required maxlength="500" rows="3"></textarea>
+        <button class="btn" type="submit">Kirim komentar</button>
+        <p class="form-msg" id="commentMsg"></p>
+      </form>
+      <p class="form-msg" id="supabaseNote"></p>
+    </div>
+    <div class="contact__footer">
+      <div class="contact__copy">&copy; 2026 Hikmal Alfatih. Dibangun vanilla — HTML, CSS, JavaScript, GSAP.</div>
+      <div class="contact__socials">
+        <a href="https://www.threads.com/@hikmalalfatih" target="_blank" rel="noopener">Threads</a>
+        <a href="https://linkedin.com/in/hikmalalfatih" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <p class="contact__fine">Apple, iPhone, iPad, MacBook dan Apple Watch adalah merek dagang Apple Inc. Situs ini independen dan tidak berafiliasi dengan Apple. Bukan service resmi Apple.</p>
+  </div>
+</section>
+
+<script src="main.js"></script>
+</body>
+</html>
