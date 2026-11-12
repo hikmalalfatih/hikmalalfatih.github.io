@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Dashboard Konten Ilmu Harian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f4f5f0;
+        --surface: #ffffff;
+        --surface-2: #eceee4;
+        --ink: #1c2115;
+        --ink-2: #4c5540;
+        --ink-3: #7a8470;
+        --line: #dde0d0;
+        --olive: #55662f;
+        --olive-deep: #3d4a21;
+        --olive-soft: #e6ead6;
+        --gold: #a97e14;
+        --gold-soft: #f3e9c8;
+        --red: #a33b2e;
+        --red-soft: #f6e0dc;
+        --shadow: 0 1px 2px rgba(28, 33, 21, .06), 0 8px 24px -12px rgba(28, 33, 21, .18);
+        --radius: 14px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #12150e;
+          --surface: #1b1f15;
+          --surface-2: #232819;
+          --ink: #eef1e4;
+          --ink-2: #b9c2a6;
+          --ink-3: #8b957b;
+          --line: #333b26;
+          --olive: #a9bf7d;
+          --olive-deep: #c3d69b;
+          --olive-soft: #2a331d;
+          --gold: #dcb84a;
+          --gold-soft: #3a3319;
+          --red: #e08a7d;
+          --red-soft: #3d2622;
+          --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+      a { color: var(--olive); }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 56px; }
+
+      /* ---------- Header ---------- */
+      header.top { margin-bottom: 22px; }
+      .brand-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+      h1 { font-size: clamp(1.55rem, 4.5vw, 2.2rem); font-weight: 800; letter-spacing: -.02em; margin: 0; line-height: 1.15; }
+      .brand-row .handle { color: var(--gold); font-weight: 700; font-size: 1rem; white-space: nowrap; }
+      .sub { color: var(--ink-2); margin: 8px 0 0; max-width: 62ch; font-size: .95rem; }
+      .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+      .chip {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 999px; padding: 5px 12px; font-size: .8rem; font-weight: 600; color: var(--ink-2);
+      }
+      .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--olive); flex: none; }
+      .chip strong { color: var(--ink); }
+
+      /* ---------- KPI strip ---------- */
+      .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 26px; }
+      .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+      .kpi .num { font-size: clamp(1.5rem, 3.4vw, 2rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+      .kpi .lbl { font-size: .8rem; color: var(--ink-2); font-weight: 600; margin-top: 4px; }
+      .kpi .note { font-size: .75rem; color: var(--ink-3); margin-top: 2px; }
+      .kpi.alert .num { color: var(--red); }
+
+      /* ---------- Sections ---------- */
+      section { margin-top: 30px; }
+      h2 { font-size: 1.15rem; font-weight: 800; letter-spacing: -.01em; margin: 0 0 4px; }
+      .sec-sub { color: var(--ink-3); font-size: .85rem; margin: 0 0 14px; }
+
+      /* ---------- Account cards ---------- */
+      .accounts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .acct { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; }
+      .acct-head { display: flex; align-items: center; gap: 10px; }
+      .acct-badge { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex: none; background: var(--olive-soft); color: var(--olive-deep); }
+      .acct-badge svg { width: 20px; height: 20px; }
+      .acct-name { font-weight: 800; font-size: 1rem; line-height: 1.2; }
+      .acct-handle { color: var(--ink-3); font-size: .82rem; font-weight: 600; }
+      .acct-big { font-size: 2rem; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+      .acct-big small { font-size: .85rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0; }
+      .acct-rows { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 6px; }
+      .acct-row { display: flex; justify-content: space-between; gap: 10px; font-size: .86rem; }
+      .acct-row span { color: var(--ink-2); }
+      .acct-row b { font-weight: 700; font-variant-numeric: tabular-nums; }
+      .acct-note { font-size: .78rem; color: var(--ink-3); margin: 0; }
+
+      /* ---------- Highlights ---------- */
+      .highlights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .hl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); display: flex; gap: 14px; align-items: flex-start; }
+      .hl .medal { width: 36px; height: 36px; border-radius: 50%; background: var(--gold-soft); color: var(--gold); display: grid; place-items: center; flex: none; }
+      .hl .medal svg { width: 18px; height: 18px; }
+      .hl h3 { margin: 0; font-size: .95rem; font-weight: 800; }
+      .hl p { margin: 3px 0 0; font-size: .86rem; color: var(--ink-2); }
+      .hl p b { color: var(--ink); }
+
+      /* ---------- Video table ---------- */
+      .table-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+      table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+      thead th { text-align: left; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); font-weight: 700; padding: 14px 16px 10px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+      tbody td { padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+      tbody tr:last-child td { border-bottom: none; }
+      .v-title { font-weight: 700; line-height: 1.35; }
+      .v-no { display: inline-block; background: var(--olive-soft); color: var(--olive-deep); font-weight: 800; font-size: .72rem; border-radius: 6px; padding: 2px 7px; margin-bottom: 6px; }
+      .v-fmt { color: var(--ink-3); font-size: .78rem; margin-top: 4px; }
+      .cell-stats { display: grid; gap: 3px; font-variant-numeric: tabular-nums; min-width: 108px; }
+      .cell-stats .row { display: flex; justify-content: space-between; gap: 12px; font-size: .85rem; }
+      .cell-stats .row span { color: var(--ink-3); }
+      .cell-stats .row b { font-weight: 700; }
+      .cell-stats .ratio { color: var(--gold); font-weight: 700; }
+      .cell-na { color: var(--ink-3); font-size: .82rem; font-style: italic; }
+      .cell-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: .8rem; font-weight: 700; text-decoration: none; min-height: 32px; }
+      .cell-link:hover { text-decoration: underline; }
+      .cell-link svg { width: 13px; height: 13px; }
+      .best-tag { display: inline-block; background: var(--gold-soft); color: var(--gold); font-size: .68rem; font-weight: 800; border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 2px; letter-spacing: .03em; }
+      .cell-note { font-size: .75rem; color: var(--ink-3); margin-top: 6px; max-width: 20ch; }
+
+      /* Mobile: table becomes stacked cards */
+      .video-cards { display: none; }
+      .vcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; margin-bottom: 12px; }
+      .vcard .plat { border-top: 1px solid var(--line); padding: 12px 0 4px; margin-top: 12px; }
+      .vcard .plat:first-of-type { margin-top: 14px; }
+      .plat-name { font-weight: 800; font-size: .85rem; display: flex; align-items: center; gap: 8px; }
+      .plat-stats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; font-size: .88rem; font-variant-numeric: tabular-nums; }
+      .plat-stats span { color: var(--ink-3); }
+      .plat-stats b { color: var(--ink); }
+      .plat-stats .ratio b { color: var(--gold); }
+
+      /* ---------- Evaluasi ---------- */
+      .eval-list { display: grid; gap: 12px; }
+      .eval-item { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); display: flex; gap: 14px; }
+      .eval-num { width: 30px; height: 30px; border-radius: 50%; background: var(--olive-soft); color: var(--olive-deep); font-weight: 800; font-size: .85rem; display: grid; place-items: center; flex: none; margin-top: 1px; }
+      .eval-item p { margin: 0; font-size: .92rem; color: var(--ink-2); }
+      .eval-item p b { color: var(--ink); }
+
+      /* ---------- Riwayat ---------- */
+      .snap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }
+      .snap-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+      .snap-head .when { font-weight: 800; font-size: 1rem; }
+      .snap-head .tag { background: var(--olive-soft); color: var(--olive-deep); font-size: .72rem; font-weight: 800; border-radius: 999px; padding: 3px 10px; letter-spacing: .03em; }
+      .snap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+      .snap-cell { background: var(--surface-2); border-radius: 10px; padding: 12px 14px; }
+      .snap-cell .p { font-size: .78rem; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+      .snap-cell .v { font-size: 1.3rem; font-weight: 800; margin-top: 2px; }
+      .snap-cell .d { font-size: .78rem; color: var(--ink-3); }
+      .snap-empty { color: var(--ink-3); font-size: .88rem; margin-top: 14px; }
+
+      footer { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--ink-3); font-size: .82rem; display: grid; gap: 6px; }
+      footer p { margin: 0; }
+
+      @media (max-width: 760px) {
+        .kpis { grid-template-columns: repeat(2, 1fr); }
+        .accounts { grid-template-columns: 1fr; }
+        .highlights { grid-template-columns: 1fr; }
+        .table-card { display: none; }
+        .video-cards { display: block; }
+        .snap-grid { grid-template-columns: 1fr; }
+        .wrap { padding: 22px 16px 48px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header class="top">
+        <div class="brand-row">
+          <h1>Dashboard Konten Ilmu Harian</h1>
+          <span class="handle">@ilmuharian.islam</span>
+        </div>
+        <p class="sub">Pantauan perkembangan konten edukasi Islam harian di TikTok, YouTube, dan Instagram — angka per video, akun yang lagi naik, dan bahan evaluasi buat video berikutnya.</p>
+        <div class="meta-line">
+          <span class="chip"><span class="dot"></span>Snapshot terakhir: <strong id="snap-when">12 Nov 2026 · 21:17 WIB</strong></span>
+          <span class="chip">4 video × 3 platform</span>
+          <span class="chip" id="snap-info">Snapshot ke-2 — sebelumnya 17:37 WIB hari yang sama</span>
+        </div>
+      </header>
+
+      <div class="kpis" id="kpis"></div>
+
+      <section aria-labelledby="akun-h">
+        <h2 id="akun-h">Tiga Akun</h2>
+        <p class="sec-sub" id="akun-sub">Angka akun per snapshot 12 November 2026, 21:17 WIB.</p>
+        <div class="accounts" id="accounts"></div>
+      </section>
+
+      <section aria-labelledby="sorotan-h">
+        <h2 id="sorotan-h">Sorotan</h2>
+        <p class="sec-sub">Yang paling menonjol dari snapshot ini — dihitung dari angka per video.</p>
+        <div class="highlights" id="highlights"></div>
+      </section>
+
+      <section aria-labelledby="video-h">
+        <h2 id="video-h">Video per Platform</h2>
+        <p class="sec-sub">Views, suka, komentar, jumlah dibagikan (TikTok), dan rasio suka (suka ÷ views) tiap video di tiap platform. Tautan di tiap sel membuka postingannya langsung.</p>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr><th scope="col">Video</th><th scope="col">TikTok</th><th scope="col">YouTube</th><th scope="col">Instagram</th></tr>
+            </thead>
+            <tbody id="video-rows"></tbody>
+          </table>
+        </div>
+        <div class="video-cards" id="video-cards"></div>
+      </section>
+
+      <section aria-labelledby="eval-h">
+        <h2 id="eval-h">Evaluasi Terbaru</h2>
+        <p class="sec-sub" id="eval-sub">Catatan evaluasi dari snapshot 21:17 WIB — bahan perbaikan buat Video 05 dan seterusnya.</p>
+        <div class="eval-list" id="evaluasi"></div>
+      </section>
+
+      <section aria-labelledby="riwayat-h">
+        <h2 id="riwayat-h">Riwayat Snapshot</h2>
+        <p class="sec-sub">Pertumbuhan kelihatan dari snapshot ke snapshot, bukan cuma angka hari ini.</p>
+        <div id="riwayat"></div>
+      </section>
+
+      <footer>
+        <p><strong>Catatan data:</strong> views per Reel di Instagram tidak tampil dari web — angka itu hanya ada di Insights aplikasi Instagram, jadi kolom views IG dikosongkan apa adanya. Suka dan komentar IG tetap terpantau.</p>
+        <p>Angka di halaman ini adalah snapshot tertanggal di atas. Snapshot baru ditambahkan saat data ketiga platform ditarik ulang.</p>
+      </footer>
+
+    </div>
+
+    <script>
+      // Data tertanam (fallback): snapshot 12 Nov 2026 21:17 WIB — ditampilkan apa adanya kalau fetch data live gagal.
+      var EMBEDDED = {
+        waktu: "2026-11-12 21:17 WIB",
+        akun: {
+          tiktok:    { akun: "@hikmalalfatihj", pengikut: 24, total_suka: 203, total_views: 3550 },
+          youtube:   { akun: "@hikmalalfatih", subscriber: 58, total_views: 3962 },
+          instagram: { akun: "@ilmuharian.islam", pengikut: 2, kiriman: 4 }
+        },
+        video: [
+          { no: 1, judul: "Telat Subuh", format: "Naratif cerita",
+            tiktok:    { views: 601,  likes: 33, komentar: 0, shares: 0,  url: "https://www.tiktok.com/@hikmalalfatihj/video/7706925892274081032" },
+            youtube:   { views: 1353, likes: 13, komentar: 0, url: "https://youtube.com/shorts/z-_JLWGFMjI" },
+            instagram: { views: null, likes: 5,  komentar: 0, url: "https://www.instagram.com/reel/DfoQCwnh1M4/" } },
+          { no: 2, judul: "Batal Nggak Sih Wudhu Kalau Bersentuhan Sama Istri?", format: "Kartu pendapat (khilafiyah)",
+            tiktok:    { views: 1096, likes: 45, komentar: 0, shares: 0,  url: "https://www.tiktok.com/@hikmalalfatihj/video/7707142529447169298" },
+            youtube:   { views: 926,  likes: 25, komentar: 0, url: "https://youtube.com/shorts/Pm2ShqHKUDY" },
+            instagram: { views: null, likes: 51, komentar: 0, url: "https://www.instagram.com/reel/DfoPdu-PzjW/" } },
+          { no: 3, judul: "Potong Kuku Malam Hari Itu Pamali? Mitos atau Fakta", format: "Mitos vs Fakta",
+            tiktok:    { views: 738,  likes: 39, komentar: 1, shares: 15, url: "https://www.tiktok.com/@hikmalalfatihj/video/7707155259734527239" },
+            youtube:   { views: 1676, likes: 32, komentar: 0, url: "https://youtube.com/shorts/ZFuKWtP8SyU" },
+            instagram: { views: null, likes: 3,  komentar: 0, url: "https://www.instagram.com/reel/DfoTk2Furbd/" } },
+          { no: 4, judul: "Tidur Duduk Pas Nunggu Sholat, Wudhunya Batal Nggak?", format: "Naratif + panel split",
+            tiktok:    { views: 1115, likes: 83, komentar: 1, shares: 3, url: "https://www.tiktok.com/@hikmalalfatihj/video/7707211254288485638" },
+            youtube:   { views: 7,    likes: 0,  komentar: 0, url: "https://youtube.com/shorts/mhSXTnSO6HM", catatan: "Distribusi Shorts lambat — nilai lagi setelah 24 jam" },
+            instagram: { views: null, likes: 10, komentar: 0, url: "https://www.instagram.com/p/Dfotfk0AoSk/" } }
+        ],
+        evaluasi: [
+          "<b>Video 04 meledak di TikTok dalam ±5 jam:</b> 1.115 views, 83 suka, 3 share, 1 komentar — menyalip Video 02 (1.096). Format naratif + panel split + pipeline baru menang di TikTok.",
+          "<b>Video 03 raja YouTube:</b> 1.676 views (naik dari 928 dalam ±4 jam) dan 15 share di TikTok — konten mitos/fakta paling bisa dibagikan ulang.",
+          "<b>Video 04 di YouTube masih 7 views</b> — distribusi Shorts untuk video ini lambat sekali dibanding TikTok; tetap tunggu 24 jam sebelum menilai.",
+          "<b>Komentar mulai bergerak</b> (TikTok Video 03: 1, Video 04: 1) tapi masih tipis — CTA tetap bahan evaluasi Video 05."
+        ]
+      };
+      var DATA = EMBEDDED;
+      var SNAPSHOTS = null; // daftar snapshot ternormalisasi (terlama -> terbaru); diisi setData()
+
+      var PLATFORMS = [
+        { key: "tiktok",    name: "TikTok" },
+        { key: "youtube",   name: "YouTube" },
+        { key: "instagram", name: "Instagram" }
+      ];
+      var fmt = function (n) { return n == null ? "—" : n.toLocaleString("id-ID"); };
+      var ratio = function (p) {
+        if (!p || p.views == null || p.likes == null || !p.views) return null;
+        return (p.likes / p.views * 100);
+      };
+      var ratioTxt = function (p) {
+        var r = ratio(p);
+        return r == null ? null : r.toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "%";
+      };
+      function bestOn(key, field) {
+        var best = null;
+        DATA.video.forEach(function (v) {
+          var val = field === "ratio" ? ratio(v[key]) : v[key][field];
+          if (val != null && (best == null || val > best.val)) best = { video: v, val: val };
+        });
+        return best;
+      }
+      var ICONS = {
+        tiktok: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.8 3.6 4 3.9v3c-1.6 0-3-.5-4-1.3v6.6c0 3.5-2.5 5.8-5.7 5.8A5.6 5.6 0 0 1 5.2 15c0-3.2 2.6-5.7 6-5.5v3.1c-1.5-.3-2.9.8-2.9 2.4 0 1.4 1.1 2.4 2.5 2.4 1.6 0 2.7-1.1 2.7-2.9V3h3.1z"/></svg>',
+        youtube: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2a2.8 2.8 0 0 0-2-2C18.3 5.8 12 5.8 12 5.8s-6.3 0-8 .4a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1.6 12 29 29 0 0 0 2 15.8a2.8 2.8 0 0 0 2 2c1.7.4 8 .4 8 .4s6.3 0 8-.4a2.8 2.8 0 0 0 2-2 29 29 0 0 0 .4-3.8 29 29 0 0 0-.4-3.8zM10 15.2V8.8l5.2 3.2L10 15.2z"/></svg>',
+        instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>',
+        trophy: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 5h-2V3H7v2H5a2 2 0 0 0-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7a2 2 0 0 0-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>',
+        ext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>'
+      };
+
+      function renderAll() {
+      /* ---------- KPI strip ---------- */
+      (function () {
+        var totalViews = 0, totalLikes = 0, totalComments = 0;
+        DATA.video.forEach(function (v) {
+          PLATFORMS.forEach(function (pl) {
+            var p = v[pl.key];
+            if (p.views != null) totalViews += p.views;
+            if (p.likes != null) totalLikes += p.likes;
+            totalComments += p.komentar || 0;
+          });
+        });
+        var kpis = [
+          { num: fmt(totalViews), lbl: "Total views terpantau", note: "TikTok + YouTube (views IG tak tampil dari web)" },
+          { num: fmt(totalLikes), lbl: "Total suka", note: "Semua video, tiga platform" },
+          { num: fmt(totalComments), lbl: "Total komentar", note: "Mulai bergerak di TikTok — CTA tetap dievaluasi", alert: true },
+          { num: fmt(DATA.video.length * 3), lbl: "Postingan tayang", note: DATA.video.length + " video × 3 platform" }
+        ];
+        document.getElementById("kpis").innerHTML = kpis.map(function (k) {
+          return '<div class="kpi' + (k.alert ? " alert" : "") + '"><div class="num">' + k.num +
+            '</div><div class="lbl">' + k.lbl + '</div><div class="note">' + k.note + "</div></div>";
+        }).join("");
+      })();
+
+      /* ---------- Account cards ---------- */
+      (function () {
+        var a = DATA.akun;
+        var ttViews = 0, ytViews = 0, igLikes = 0, ttShares = 0;
+        DATA.video.forEach(function (v) {
+          ttViews += v.tiktok.views || 0;
+          ytViews += v.youtube.views || 0;
+          igLikes += v.instagram.likes || 0;
+          ttShares += v.tiktok.shares || 0;
+        });
+        var bTTa = bestOn("tiktok", "views"), bYTa = bestOn("youtube", "views"), bIGa = bestOn("instagram", "likes");
+        var cards = [
+          { key: "tiktok", name: "TikTok", handle: a.tiktok.akun,
+            big: fmt(a.tiktok.pengikut), bigLbl: "followers",
+            rows: [["Total suka akun", fmt(a.tiktok.total_suka)], ["Views " + DATA.video.length + " video", fmt(ttViews)], ["Dibagikan (" + DATA.video.length + " video)", fmt(ttShares)]],
+            note: "Video " + bTTa.video.no + " yang terkuat di TikTok saat ini: " + fmt(bTTa.val) + " views, " + fmt(bTTa.video.tiktok.likes) + " suka." },
+          { key: "youtube", name: "YouTube", handle: a.youtube.akun,
+            big: fmt(a.youtube.subscriber), bigLbl: "subscriber",
+            rows: [["Views " + DATA.video.length + " Shorts", fmt(ytViews)], ["Video terkuat", "Video " + bYTa.video.no + " · " + fmt(bYTa.val) + " views"]],
+            note: "Video " + bYTa.video.no + " yang terkuat di YouTube saat ini dengan " + fmt(bYTa.val) + " views." },
+          { key: "instagram", name: "Instagram", handle: a.instagram.akun,
+            big: fmt(a.instagram.pengikut), bigLbl: "followers",
+            rows: [["Kiriman", fmt(a.instagram.kiriman)], ["Total suka " + DATA.video.length + " Reel", fmt(igLikes)], ["Views per Reel", "Insights aplikasi"]],
+            note: "Reel Video " + bIGa.video.no + " paling banyak disukai saat ini: " + fmt(bIGa.val) + " suka." }
+        ];
+        document.getElementById("accounts").innerHTML = cards.map(function (c) {
+          return '<article class="acct"><div class="acct-head"><span class="acct-badge">' + ICONS[c.key] +
+            '</span><div><div class="acct-name">' + c.name + '</div><div class="acct-handle">' + c.handle +
+            '</div></div></div><div class="acct-big">' + c.big + " <small>" + c.bigLbl + '</small></div><div class="acct-rows">' +
+            c.rows.map(function (r) { return '<div class="acct-row"><span>' + r[0] + "</span><b>" + r[1] + "</b></div>"; }).join("") +
+            '</div><p class="acct-note">' + c.note + "</p></article>";
+        }).join("");
+      })();
+
+      /* ---------- Highlights ---------- */
+      (function () {
+        var bTT = bestOn("tiktok", "views");
+        var bYT = bestOn("youtube", "views");
+        var bRatio = bestOn("tiktok", "ratio");
+        var bIG = bestOn("instagram", "likes");
+        var items = [
+          { t: "Terkuat di TikTok", d: "<b>Video " + bTT.video.no + " — " + bTT.video.judul + "</b> dengan <b>" + fmt(bTT.val) + " views</b>, tertinggi dari semua video di TikTok." },
+          { t: "Terkuat di YouTube", d: "<b>Video " + bYT.video.no + " — " + bYT.video.judul + "</b> dengan <b>" + fmt(bYT.val) + " views</b>. Format mitos vs fakta menang di Shorts." },
+          { t: "Rasio suka terbaik", d: "<b>Video " + bRatio.video.no + "</b> di TikTok: " + fmt(bRatio.video.tiktok.likes) + " suka dari " + fmt(bRatio.video.tiktok.views) + " views = <b>" + ratioTxt(bRatio.video.tiktok) + "</b> — format pipeline baru paling disukai penonton." },
+          { t: "Kejutan di Instagram", d: "<b>Video " + bIG.video.no + "</b> dapat <b>" + fmt(bIG.val) + " suka</b> padahal followers baru 2 — Reel-nya jelas jalan ke non-followers." }
+        ];
+        document.getElementById("highlights").innerHTML = items.map(function (i) {
+          return '<div class="hl"><span class="medal">' + ICONS.trophy + "</span><div><h3>" + i.t + "</h3><p>" + i.d + "</p></div></div>";
+        }).join("");
+      })();
+
+      /* ---------- Video table + cards ---------- */
+      (function () {
+        var bestViews = { tiktok: bestOn("tiktok", "views").video.no, youtube: bestOn("youtube", "views").video.no };
+        function cellHTML(v, key) {
+          var p = v[key];
+          if (p.views == null && key === "instagram") {
+            return '<div class="cell-stats"><div class="row"><span>Suka</span><b>' + fmt(p.likes) + '</b></div>' +
+              '<div class="row"><span>Komentar</span><b>' + fmt(p.komentar) + '</b></div></div>' +
+              '<div class="cell-na">Views tidak tampil di IG web</div>' +
+              '<a class="cell-link" href="' + p.url + '" target="_blank" rel="noopener">Buka Reel ' + ICONS.ext + "</a>";
+          }
+          var h = '<div class="cell-stats">' +
+            '<div class="row"><span>Views</span><b>' + fmt(p.views) + "</b></div>" +
+            '<div class="row"><span>Suka</span><b>' + fmt(p.likes) + "</b></div>" +
+            '<div class="row"><span>Komentar</span><b>' + fmt(p.komentar) + "</b></div>";
+          if (p.shares != null) h += '<div class="row"><span>Dibagikan</span><b>' + fmt(p.shares) + "</b></div>";
+          var r = ratioTxt(p);
+          if (r) h += '<div class="row"><span>Rasio suka</span><b class="ratio">' + r + "</b></div>";
+          h += "</div>";
+          if (bestViews[key] === v.no) h += '<span class="best-tag">TERTINGGI</span>';
+          if (p.catatan) h += '<div class="cell-note">' + p.catatan + "</div>";
+          h += '<a class="cell-link" href="' + p.url + '" target="_blank" rel="noopener">Buka postingan ' + ICONS.ext + "</a>";
+          return h;
+        }
+        document.getElementById("video-rows").innerHTML = DATA.video.map(function (v) {
+          return "<tr><td><span class=\"v-no\">VIDEO " + v.no + '</span><div class="v-title">' + v.judul +
+            '</div><div class="v-fmt">Format: ' + v.format + "</div></td><td>" + cellHTML(v, "tiktok") +
+            "</td><td>" + cellHTML(v, "youtube") + "</td><td>" + cellHTML(v, "instagram") + "</td></tr>";
+        }).join("");
+
+        document.getElementById("video-cards").innerHTML = DATA.video.map(function (v) {
+          var plats = PLATFORMS.map(function (pl) {
+            var p = v[pl.key];
+            var stats;
+            if (pl.key === "instagram" && p.views == null) {
+              stats = '<div class="plat-stats"><span>Suka <b>' + fmt(p.likes) + '</b></span><span>Komentar <b>' + fmt(p.komentar) +
+                '</b></span><span>Views tidak tampil di IG web</span></div>';
+            } else {
+              stats = '<div class="plat-stats"><span>Views <b>' + fmt(p.views) + '</b></span><span>Suka <b>' + fmt(p.likes) +
+                '</b></span><span>Komentar <b>' + fmt(p.komentar) + "</b></span>";
+              if (p.shares != null) stats += '<span>Dibagikan <b>' + fmt(p.shares) + "</b></span>";
+              var r = ratioTxt(p);
+              if (r) stats += '<span class="ratio">Rasio suka <b>' + r + "</b></span>";
+              stats += "</div>";
+            }
+            var tag = bestViews[pl.key] === v.no ? '<span class="best-tag">TERTINGGI</span>' : "";
+            var note = p.catatan ? '<div class="cell-note">' + p.catatan + "</div>" : "";
+            return '<div class="plat"><div class="plat-name">' + pl.name + tag + "</div>" + stats + note +
+              '<a class="cell-link" href="' + p.url + '" target="_blank" rel="noopener">Buka postingan ' + ICONS.ext + "</a></div>";
+          }).join("");
+          return '<article class="vcard"><span class="v-no">VIDEO ' + v.no + '</span><div class="v-title">' + v.judul +
+            '</div><div class="v-fmt">Format: ' + v.format + "</div>" + plats + "</article>";
+        }).join("");
+      })();
+
+      /* ---------- Evaluasi ---------- */
+      document.getElementById("evaluasi").innerHTML = DATA.evaluasi.map(function (e, i) {
+        return '<div class="eval-item"><span class="eval-num">' + (i + 1) + "</span><p>" + e + "</p></div>";
+      }).join("");
+
+      /* ---------- Riwayat snapshot ---------- */
+      (function () {
+        var list = SNAPSHOTS && SNAPSHOTS.length ? SNAPSHOTS : [DATA];
+        function totViews(s) {
+          var t = 0;
+          s.video.forEach(function (v) {
+            if (v.tiktok.views != null) t += v.tiktok.views;
+            if (v.youtube.views != null) t += v.youtube.views;
+          });
+          return t;
+        }
+        function igLikes(s) {
+          var t = 0;
+          s.video.forEach(function (v) { t += v.instagram.likes || 0; });
+          return t;
+        }
+        function jam(w) { var m = /\d{2}:\d{2}/.exec(w || ""); return m ? m[0] : ""; }
+        function delta(cur, prev) {
+          if (cur == null || prev == null) return "";
+          var d = cur - prev;
+          if (!d) return " (tetap)";
+          return " (" + (d > 0 ? "+" : "−") + fmt(Math.abs(d)) + ")";
+        }
+        var blocks = [];
+        for (var i = list.length - 1; i >= 0; i--) {
+          (function (s, prev) {
+            var a = s.akun;
+            var tag = i === list.length - 1 ? "SNAPSHOT TERBARU" : (i === 0 ? "SNAPSHOT PERTAMA" : "SNAPSHOT KE-" + (i + 1));
+            var ttD = fmt(a.tiktok.total_suka) + " total suka akun" + (prev ? delta(a.tiktok.total_suka, prev.akun.tiktok.total_suka) + " dari " + jam(prev.waktu) : "");
+            var ytD = "Views " + s.video.length + " Shorts " + fmt(a.youtube.total_views) + (prev ? delta(a.youtube.total_views, prev.akun.youtube.total_views) + " dari " + jam(prev.waktu) : "");
+            var igD = fmt(a.instagram.kiriman) + " kiriman · total suka Reel " + fmt(igLikes(s)) + (prev ? delta(igLikes(s), igLikes(prev)) + " dari " + jam(prev.waktu) : "");
+            var note = prev ? '<p class="snap-empty">Total views terpantau ' + (totViews(s) >= totViews(prev) ? "naik" : "turun") + " dari " + fmt(totViews(prev)) + " (" + jam(prev.waktu) + ") ke " + fmt(totViews(s)) + " (" + jam(s.waktu) + ").</p>" : "";
+            blocks.push(
+              '<div class="snap"' + (blocks.length ? ' style="margin-top:12px"' : "") + '><div class="snap-head"><span class="when">' + longWhen(s.waktu) + "</span>" +
+              '<span class="tag">' + tag + '</span></div><div class="snap-grid">' +
+              '<div class="snap-cell"><div class="p">TikTok</div><div class="v">' + fmt(a.tiktok.pengikut) + ' followers</div><div class="d">' + ttD + "</div></div>" +
+              '<div class="snap-cell"><div class="p">YouTube</div><div class="v">' + fmt(a.youtube.subscriber) + ' subscriber</div><div class="d">' + ytD + "</div></div>" +
+              '<div class="snap-cell"><div class="p">Instagram</div><div class="v">' + fmt(a.instagram.pengikut) + ' followers</div><div class="d">' + igD + "</div></div>" +
+              "</div>" + note + "</div>");
+          })(list[i], i > 0 ? list[i - 1] : null);
+        }
+        document.getElementById("riwayat").innerHTML = blocks.join("");
+      })();
+      }
+
+      /* ---------- Data live (GitHub) + fallback tertanam ---------- */
+      var LIVE_URL = "https://hikmalalfatih.github.io/dashboard-data/metrics.json";
+      var EMBEDDED_SNAPSHOTS = [{"akun": {"instagram": {"akun": "@ilmuharian.islam", "kiriman": 4, "mengikuti": 0, "pengikut": 2}, "tiktok": {"akun": "@hikmalalfatihj", "mengikuti": 139, "pengikut": 23, "total_suka": 173}, "youtube": {"akun": "@hikmalalfatih", "catatan": "naik 9 dalam 28 hari (dari 49 pada 11 Nov)", "subscriber": 58}}, "evaluasi_awal": ["TikTok mesin utama saat ini: semua video 597-1.016 views dalam <24 jam. Video 02 (topik relasi suami-istri + beda pendapat ulama) views tertinggi; Video 04 rasio suka tertinggi (58/664 = 8,7%) — format pipeline baru + topik relatable bekerja.", "YouTube Shorts: Video 03 (mitos vs fakta) tertinggi 928 views; Video 01 840. Distribusi Shorts lebih lambat mulai (Video 04 baru 5 views di 1,5 jam pertama) — nilai lagi setelah 24 jam sebelum menyimpulkan.", "IG akun baru (2 followers): Video 02 dapat 50 suka — jauh di atas followers, artinya Reel didistribusikan ke non-followers; topik Video 02 kuat lintas platform. Views IG tidak terlihat dari web (perlu Insights di aplikasi).", "Komentar hampir nol di semua platform (total 1) — CTA komentar belum bekerja; evaluasi hook pertanyaan di CTA untuk Video 05+."], "video": [{"format": "naratif", "instagram": {"catatan_views": "views tidak tampil di IG web", "komentar": 0, "likes": 5, "url": "https://www.instagram.com/p/DfoQCwnh1M4/", "views": null}, "judul": "Telat Subuh", "no": 1, "tiktok": {"komentar": 0, "likes": 33, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7706925892274081032", "views": 597}, "youtube": {"komentar": 0, "likes": 13, "url": "https://youtube.com/shorts/z-_JLWGFMjI", "views": 840}}, {"format": "kartu pendapat mazhab", "instagram": {"catatan_views": "views tidak tampil di IG web", "komentar": 0, "likes": 50, "url": "https://www.instagram.com/p/DfoPdu-PzjW/", "views": null}, "judul": "Wudhu Batal Kalau Kesenggol Istri?", "no": 2, "tiktok": {"komentar": 0, "likes": 42, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7707142529447169298", "views": 1016}, "youtube": {"komentar": 0, "likes": 25, "url": "https://youtube.com/shorts/Pm2ShqHKUDY", "views": 781}}, {"format": "mitos vs fakta (stempel)", "instagram": {"catatan_views": "views tidak tampil di IG web", "komentar": 0, "likes": 3, "url": "https://www.instagram.com/p/DfoTk2Furbd/", "views": null}, "judul": "Potong Kuku Malam Hari Itu Pamali?", "no": 3, "tiktok": {"komentar": 1, "likes": 37, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7707155259734527239", "views": 697}, "youtube": {"komentar": 0, "likes": 30, "url": "https://youtube.com/shorts/ZFuKWtP8SyU", "views": 928}}, {"format": "naratif + dalil card (pipeline baru)", "instagram": {"catatan_views": "views tidak tampil di IG web", "komentar": 0, "likes": 3, "url": "https://www.instagram.com/p/Dfotfk0AoSk/", "views": null}, "judul": "Tidur Duduk Pas Nunggu Sholat, Wudhunya Batal Nggak?", "no": 4, "tiktok": {"komentar": 0, "likes": 58, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7707211254288485638", "views": 664}, "youtube": {"catatan": "baru 1,5 jam tayang saat snapshot", "komentar": 0, "likes": null, "url": "https://youtube.com/shorts/mhSXTnSO6HM", "views": 5}}], "waktu": "2026-11-12 17:37 WIB"}, {"akun": {"instagram": {"akun": "@ilmuharian.islam", "kiriman": 4, "pengikut": 2}, "tiktok": {"akun": "@hikmalalfatihj", "pengikut": 24, "total_suka": 203, "total_views_video": 3550}, "youtube": {"akun": "@hikmalalfatih", "subscriber": 58, "total_views_video": 3962}}, "evaluasi": ["Video 04 meledak di TikTok dalam ±5 jam: 1.115 views, 83 suka, 3 share, 1 komentar — menyalip Video 02 (1.096). Format naratif + panel split + pipeline baru menang di TikTok.", "Video 03 raja YouTube: 1.676 views (naik dari 928 dalam ±4 jam) dan 15 share di TikTok — konten mitos/fakta paling bisa dibagikan ulang.", "Video 04 di YouTube masih 7 views — distribusi Shorts untuk video ini lambat sekali dibanding TikTok; tetap tunggu 24 jam sebelum menilai.", "Komentar mulai bergerak (TikTok V03 1, V04 1) tapi masih tipis — CTA tetap bahan evaluasi Video 05."], "sumber": "refresh dashboard (refreshMetrics) 21:17 WIB", "video": [{"format": "Naratif cerita", "instagram": {"komentar": 0, "likes": 5, "url": "https://www.instagram.com/reel/DfoQCwnh1M4/", "views": null}, "judul": "Telat Subuh", "no": 1, "tiktok": {"komentar": 0, "likes": 33, "shares": 0, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7706925892274081032", "views": 601}, "youtube": {"komentar": 0, "likes": 13, "url": "https://youtube.com/shorts/z-_JLWGFMjI", "views": 1353}}, {"format": "Kartu pendapat (khilafiyah)", "instagram": {"komentar": 0, "likes": 51, "url": "https://www.instagram.com/reel/DfoPdu-PzjW/", "views": null}, "judul": "Batal Nggak Sih Wudhu Kalau Bersentuhan Sama Istri?", "no": 2, "tiktok": {"komentar": 0, "likes": 45, "shares": 0, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7707142529447169298", "views": 1096}, "youtube": {"komentar": 0, "likes": 25, "url": "https://youtube.com/shorts/Pm2ShqHKUDY", "views": 926}}, {"format": "Mitos vs Fakta", "instagram": {"komentar": 0, "likes": 3, "url": "https://www.instagram.com/reel/DfoTk2Furbd/", "views": null}, "judul": "Potong Kuku Malam Hari Itu Pamali? Mitos atau Fakta", "no": 3, "tiktok": {"komentar": 1, "likes": 39, "shares": 15, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7707155259734527239", "views": 738}, "youtube": {"komentar": 0, "likes": 32, "url": "https://youtube.com/shorts/ZFuKWtP8SyU", "views": 1676}}, {"format": "Naratif + panel split", "instagram": {"komentar": 0, "likes": 10, "url": "https://www.instagram.com/p/Dfotfk0AoSk/", "views": null}, "judul": "Tidur Duduk Pas Nunggu Sholat, Wudhunya Batal Nggak?", "no": 4, "tiktok": {"komentar": 1, "likes": 83, "shares": 3, "url": "https://www.tiktok.com/@hikmalalfatihj/video/7707211254288485638", "views": 1115}, "youtube": {"komentar": 0, "likes": 0, "url": "https://youtube.com/shorts/mhSXTnSO6HM", "views": 7}}], "waktu": "2026-11-12 21:17 WIB"}];
+      var BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      var BULAN_PENDEK = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+      function parseWaktu(w) {
+        var m = /(\d{4})-(\d{2})-(\d{2})\s+(\d{2}:\d{2})/.exec(w || "");
+        if (!m) return null;
+        return { y: +m[1], mo: +m[2], d: +m[3], jam: m[4] };
+      }
+      function longWhen(w) {
+        var p = parseWaktu(w);
+        return p ? p.d + " " + BULAN[p.mo - 1] + " " + p.y + " · " + p.jam + " WIB" : (w || "");
+      }
+      function shortWhen(w) {
+        var p = parseWaktu(w);
+        return p ? p.d + " " + BULAN_PENDEK[p.mo - 1] + " " + p.y + " · " + p.jam + " WIB" : (w || "");
+      }
+      function sumViews(videos, key) {
+        var t = 0;
+        (videos || []).forEach(function (v) { if (v[key] && v[key].views != null) t += v[key].views; });
+        return t;
+      }
+      function pick() {
+        for (var i = 0; i < arguments.length; i++) if (arguments[i] != null) return arguments[i];
+        return null;
+      }
+      function normalizeSnapshot(s) {
+        var a = s.akun || {}, vids = s.video || [];
+        return {
+          waktu: s.waktu || "",
+          akun: {
+            tiktok:    { akun: (a.tiktok || {}).akun, pengikut: (a.tiktok || {}).pengikut, total_suka: (a.tiktok || {}).total_suka,
+                         total_views: pick((a.tiktok || {}).total_views, (a.tiktok || {}).total_views_video, sumViews(vids, "tiktok")) },
+            youtube:   { akun: (a.youtube || {}).akun, subscriber: (a.youtube || {}).subscriber,
+                         total_views: pick((a.youtube || {}).total_views, (a.youtube || {}).total_views_video, sumViews(vids, "youtube")) },
+            instagram: { akun: (a.instagram || {}).akun, pengikut: (a.instagram || {}).pengikut, kiriman: (a.instagram || {}).kiriman }
+          },
+          video: vids.map(function (v) {
+            function plat(p) {
+              p = p || {};
+              var o = { views: p.views != null ? p.views : null, likes: p.likes, komentar: p.komentar, url: p.url };
+              if (p.shares != null) o.shares = p.shares;
+              if (p.catatan) o.catatan = p.catatan;
+              return o;
+            }
+            return { no: v.no, judul: v.judul, format: v.format, tiktok: plat(v.tiktok), youtube: plat(v.youtube), instagram: plat(v.instagram) };
+          }),
+          evaluasi: s.evaluasi || s.evaluasi_awal || []
+        };
+      }
+      function setData(rawSnapshots) {
+        if (!rawSnapshots || !rawSnapshots.length) return;
+        SNAPSHOTS = rawSnapshots.map(normalizeSnapshot);
+        DATA = SNAPSHOTS[SNAPSHOTS.length - 1];
+        var el;
+        el = document.getElementById("snap-when"); if (el) el.textContent = shortWhen(DATA.waktu);
+        el = document.getElementById("snap-info");
+        if (el) {
+          el.textContent = SNAPSHOTS.length > 1
+            ? "Snapshot ke-" + SNAPSHOTS.length + " — sebelumnya " + shortWhen(SNAPSHOTS[SNAPSHOTS.length - 2].waktu)
+            : "Snapshot pertama";
+        }
+        el = document.getElementById("akun-sub"); if (el) el.textContent = "Angka akun per snapshot " + longWhen(DATA.waktu).replace(" · ", ", ") + ".";
+        el = document.getElementById("eval-sub");
+        if (el) { var p = parseWaktu(DATA.waktu); el.textContent = "Catatan evaluasi dari snapshot " + (p ? p.jam : "") + " WIB — bahan perbaikan buat video berikutnya."; }
+        renderAll();
+      }
+      setData(EMBEDDED_SNAPSHOTS);
+      if (window.fetch) {
+        fetch(LIVE_URL + "?v=" + Date.now(), { cache: "no-store" })
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+          .then(function (j) { if (j && j.snapshots && j.snapshots.length) setData(j.snapshots); })
+          .catch(function () { /* fetch gagal: halaman tetap menampilkan data tertanam */ });
+      }
+    </script>
+  </body>
+</html>
