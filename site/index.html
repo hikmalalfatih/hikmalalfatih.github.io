@@ -65,6 +65,8 @@
   </div>
 </div>
 
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar" id="scrollProgressBar"></div></div>
+
 <nav class="nav">
   <div class="nav__logo">HIKMAL<span class="accent">.</span></div>
   <div class="nav__links">
@@ -115,7 +117,7 @@
 <!-- DARI SINI ISINYA BEDA: PUNYA HIKMAL -->
 <section class="intro" id="tentang">
   <div class="intro__video-wrap">
-    <img class="intro__video" src="photos/cracked-back.jpg" alt="">
+    <img loading="lazy" decoding="async" class="intro__video" src="photos/cracked-back.jpg" alt="">
     <div class="intro__overlay"></div>
   </div>
   <div class="intro__content">
@@ -132,7 +134,7 @@
         <p>Saya Hikmal Alfatih, teknisi hardware Apple dengan pengalaman dari perbaikan interface sampai diagnosa board-level. Fokus saya: perbaikan yang rapi dan bisa dipertanggungjawabkan, bukan perbaikan cepat yang asal jadi. Saya juga membangun website sendiri dengan bantuan AI tools seperti GitHub Copilot — situs ini salah satunya, dibangun vanilla tanpa framework.</p>
       </div>
       <div class="intro__col reveal-up">
-        <img class="intro__portrait" src="photos/portrait.jpg" alt="Hikmal Alfatih">
+        <img loading="lazy" decoding="async" class="intro__portrait" src="photos/portrait.jpg" alt="Hikmal Alfatih">
         <p class="intro__caption">Hikmal Alfatih — teknisi &amp; pembangun situs ini.</p>
       </div>
     </div>
@@ -223,22 +225,29 @@
 
 <section class="gallery">
   <div class="gallery-track">
-    <img src="photos/lcd.jpg" alt="LCD iPhone">
-    <img src="photos/battery-swap.jpg" alt="Pergantian baterai iPhone">
-    <img src="photos/camera-flex.jpg" alt="Fleksibel kamera iPhone">
-    <img src="photos/dynamic-island.jpg" alt="Dynamic Island iPhone">
-    <img src="photos/ipad.jpg" alt="iPad">
-    <img src="photos/macbook.jpg" alt="MacBook">
-    <img src="photos/shattered-lcd.jpg" alt="LCD iPhone hancur">
-    <img src="photos/battery.jpg" alt="Baterai iPhone">
-    <img src="photos/lineup.jpg" alt="Jajaran perangkat Apple">
+    <img loading="lazy" decoding="async" src="photos/lcd.jpg" alt="LCD iPhone">
+    <img loading="lazy" decoding="async" src="photos/battery-swap.jpg" alt="Pergantian baterai iPhone">
+    <img loading="lazy" decoding="async" src="photos/camera-flex.jpg" alt="Fleksibel kamera iPhone">
+    <img loading="lazy" decoding="async" src="photos/dynamic-island.jpg" alt="Dynamic Island iPhone">
+    <img loading="lazy" decoding="async" src="photos/ipad.jpg" alt="iPad">
+    <img loading="lazy" decoding="async" src="photos/macbook.jpg" alt="MacBook">
+    <img loading="lazy" decoding="async" src="photos/shattered-lcd.jpg" alt="LCD iPhone hancur">
+    <img loading="lazy" decoding="async" src="photos/battery.jpg" alt="Baterai iPhone">
+    <img loading="lazy" decoding="async" src="photos/lineup.jpg" alt="Jajaran perangkat Apple">
   </div>
 </section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Diagnosa Dulu · <b>Cek Gratis</b> · Bayar Hanya Kalau Berhasil · <b>Board-Level Repair</b> · iPhone · iPad · Mac · Diagnosa Dulu · <b>Cek Gratis</b> · Bayar Hanya Kalau Berhasil · <b>Board-Level Repair</b> · iPhone · iPad · Mac ·&nbsp;</span>
+    <span>Diagnosa Dulu · <b>Cek Gratis</b> · Bayar Hanya Kalau Berhasil · <b>Board-Level Repair</b> · iPhone · iPad · Mac · Diagnosa Dulu · <b>Cek Gratis</b> · Bayar Hanya Kalau Berhasil · <b>Board-Level Repair</b> · iPhone · iPad · Mac ·&nbsp;</span>
+  </div>
+</div>
 
 <section class="cinematic" id="break">
   <div class="cinematic__sticky">
     <div class="cinematic__video-frame">
-      <img class="cinematic__img" src="photos/hero-flatlay.jpg" alt="Perangkat Apple: iPhone, iPad, MacBook, dan Apple Watch">
+      <img loading="lazy" decoding="async" class="cinematic__img" src="photos/hero-flatlay.jpg" alt="Perangkat Apple: iPhone, iPad, MacBook, dan Apple Watch">
     </div>
     <div class="cinematic__overlay"></div>
     <div class="cinematic__content">
@@ -286,7 +295,7 @@
       <p>Sedang berjalan. Sebelumnya: PPKD Jakarta Barat (Computer Operator Training, 2023), Pondok Pesantren Alfachriyah (Qur'anic Studies, 2019–2021), SMA 95 (Natural Sciences and Biology, 2018–2019).</p>
     </div>
     <div class="row-item row-item--cert">
-      <img src="photos/certificate.jpg" alt="Sertifikat Machine Expert">
+      <img loading="lazy" decoding="async" src="photos/certificate.jpg" alt="Sertifikat Machine Expert">
       <div>
         <span class="row-item__meta">Sertifikat</span>
         <h3>Machine Expert Certification</h3>
@@ -302,7 +311,7 @@
       <span>Karya</span>
     </div>
     <div class="row-item row-item--work">
-      <img src="photos/maley-clothes.jpg" alt="Toko kaos interaktif maley clothes">
+      <img loading="lazy" decoding="async" src="photos/maley-clothes.jpg" alt="Toko kaos interaktif maley clothes">
       <div>
         <h3>maley clothes</h3>
         <p>Toko kaos interaktif: kaos muter pas di-hover, klik buat inspect depan-belakang, ganti warna hitam-putih. Dibangun tanpa framework.</p>
@@ -330,14 +339,14 @@
     </h2>
     <a href="https://wa.me/6281903031378?text=Halo%20Kak%2C%20saya%20mau%20tanya%20soal%20service%20Apple." target="_blank" rel="noopener" class="contact__email reveal-up">Chat WhatsApp — 0819-0303-1378</a>
     <p class="contact__note reveal-up">Lokasi terima device: di Pasar Kreatif, Cibeunying Kaler, Bandung. Saya freelance — kadang mengerjakan di toko, kadang di kos. Yang tidak bisa dibantu: HP nyangkut iCloud, update OS iPhone bypass, dan buka password MacBook.</p>
-    <div class="contact__sticker reveal-up"><img src="photos/portrait-sticker.jpg" alt="Stiker wajah Hikmal Alfatih"></div>
+    <div class="contact__sticker reveal-up"><img loading="lazy" decoding="async" src="photos/portrait-sticker.jpg" alt="Stiker wajah Hikmal Alfatih"></div>
     <form id="contactForm" class="contact__form reveal-up">
       <h3>Kirim pesan</h3>
       <input name="name" type="text" placeholder="Nama kamu" required maxlength="60">
       <input name="email" type="email" placeholder="Email kamu" required maxlength="254">
       <textarea name="message" placeholder="Perangkat apa, kerusakannya apa? (min. 10 karakter)" required maxlength="2000" rows="4"></textarea>
       <button class="btn" type="submit">Kirim pesan</button>
-      <p class="form-msg" id="contactMsg"></p>
+      <p class="form-msg" id="contactMsg" aria-live="polite"></p>
     </form>
     <div class="contact__comments reveal-up">
       <h3>Komentar</h3>
@@ -346,7 +355,7 @@
         <input name="name" type="text" placeholder="Nama kamu" required maxlength="60">
         <textarea name="comment" placeholder="Tulis komentar…" required maxlength="500" rows="3"></textarea>
         <button class="btn" type="submit">Kirim komentar</button>
-        <p class="form-msg" id="commentMsg"></p>
+        <p class="form-msg" id="commentMsg" aria-live="polite"></p>
       </form>
       <p class="form-msg" id="supabaseNote"></p>
     </div>
@@ -360,6 +369,8 @@
     <p class="contact__fine">Apple, iPhone, iPad, MacBook dan Apple Watch adalah merek dagang Apple Inc. Situs ini independen dan tidak berafiliasi dengan Apple. Bukan service resmi Apple.</p>
   </div>
 </section>
+
+<button class="to-top" id="toTop" type="button" aria-label="Kembali ke atas">&uarr;</button>
 
 <script src="main.js"></script>
 </body>

@@ -367,7 +367,7 @@
       heroFrameSet.load(i); total++;
       resources.push({ type: 'image', el: heroFrameSet.frames[i] });
     }
-    document.querySelectorAll('img[src]').forEach(function (img) {
+    document.querySelectorAll('img[src]:not([loading="lazy"])').forEach(function (img) {
       total++; resources.push({ type: 'image', el: img });
     });
     if (document.fonts && document.fonts.ready) {
@@ -493,6 +493,63 @@
     }
   }
 
+  /* ---------- Enhancement pass: progress bar, nav spy, back-to-top ---------- */
+  function initScrollProgress() {
+    var bar = document.getElementById('scrollProgressBar');
+    if (!bar) return;
+    var ticking = false;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? window.scrollY / max : 0;
+      bar.style.transform = 'scaleX(' + ratio + ')';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
+  function initNavSpy() {
+    var links = document.querySelectorAll('.nav__links a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (link) { byId[link.getAttribute('href').slice(1)] = link; });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = byId[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove('is-active'); });
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    Object.keys(byId).forEach(function (id) {
+      var section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  }
+
+  function initToTop() {
+    var btn = document.getElementById('toTop');
+    if (!btn) return;
+    var ticking = false;
+    function update() {
+      btn.classList.toggle('is-visible', window.scrollY > 600);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    btn.addEventListener('click', function () {
+      gsap.to(window, { scrollTo: { y: 0 }, duration: 1.1, ease: 'power3.inOut' });
+    });
+    update();
+  }
+
   function init() {
     initPreloader(function () {
       initHero();
@@ -503,6 +560,9 @@
       initCinematic();
       initContact();
       initForms();
+      initScrollProgress();
+      initNavSpy();
+      initToTop();
       requestIdle(function () { initSmoothAnchors(); });
     });
   }
